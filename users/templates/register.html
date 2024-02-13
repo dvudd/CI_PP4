@@ -1,0 +1,20 @@
+{% extends "cards/base.html" %}
+{% block content %}
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    Register today!
+                </legend>
+                {{ form }}
+            </fieldset>
+            <div>
+                <button type="stubmit">Register</button>
+            <div>
+        </form>
+        <div>
+            <small>Already Have An Account? <a href="#">Sign In</a></small>
+        </div>
+    </div>
+{% endblock content %}
