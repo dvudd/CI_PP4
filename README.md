@@ -1,5 +1,5 @@
 # FlashCards
-![DEPLOYED LINK](https://ci-flashcards-0d9425f9c570.herokuapp.com)
+[DEPLOYED LINK](https://ci-flashcards-0d9425f9c570.herokuapp.com)
 
 ## Technologies Used
 - Django
