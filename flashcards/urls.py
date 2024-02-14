@@ -17,10 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
+from django.conf import settings
 from users import views as user_views
-import os
-if os.path.isfile('env.py'):
-    import env
 
 urlpatterns = [
     path('', include('cards.urls')),
@@ -31,5 +29,5 @@ urlpatterns = [
 ]
 
 # Enable admin page when not in production
-if os.environ.get("DEBUG") == 'True':
+if settings.DEBUG == 'True':
     urlpatterns += path('admin/', admin.site.urls),
