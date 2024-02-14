@@ -28,6 +28,6 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
 ]
 
-# Enable admin page when not in production
+# Enable admin page when DEBUG is set to True
 if settings.DEBUG == 'True':
     urlpatterns += path('admin/', admin.site.urls),
