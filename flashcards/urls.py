@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from django.conf import settings
 from users import views as user_views
+import os
+if os.path.isfile('env.py'):
+    import env
 
 urlpatterns = [
     path('', include('cards.urls')),
@@ -28,6 +30,6 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
 ]
 
-# Disable admin panel on production
-if settings.DEBUG == True:
+# Enable admin page when not in production
+if os.environ.get("DEBUG") == 'True':
     urlpatterns += path('admin/', admin.site.urls),
