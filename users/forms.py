@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Profile
 
 # Register Form
 class UserRegisterForm(UserCreationForm):
@@ -54,3 +55,17 @@ class LoginForm(forms.Form):
             if user is None:
                 raise forms.ValidationError("Invalid email or password")
         return cleaned_data
+
+# Profile Form
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
