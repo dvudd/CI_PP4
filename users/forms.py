@@ -62,10 +62,22 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['email', 'first_name', 'last_name']
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        email = self.cleaned_data['email']
+        user.username = email
+        user.email = email
+        if commit:
+            user.save()
+        return user
 
+# Profile picture Form
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+        widgets = {
+            'image': forms.FileInput(),
+        }
