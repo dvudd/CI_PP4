@@ -2,6 +2,16 @@
 {% block content %}
     <div class="content-section">
         <h1>{{ deck.name }}</h1>
-        <a href="#" class="btn btn-success">+ New Card</a>
+        <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">+ New Card</a>
         <h2>Cards</h2>
+        <ul>
+            <ul>
+                {% for card in cards %}
+                    <li>{{ card.question }}</li>  <!-- Display each card's question -->
+                    <!-- You can also display card's answer and other fields as needed -->
+                {% empty %}
+                    <li>No cards in this deck yet.</li>
+                {% endfor %}
+            </ul>
+        </ul>
 {% endblock content%}

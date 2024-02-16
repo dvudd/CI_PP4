@@ -18,3 +18,9 @@ class Deck(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Card(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
