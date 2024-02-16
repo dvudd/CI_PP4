@@ -1,0 +1,8 @@
+{% extends "cards/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <h1>{{ subject.name }}</h1>
+        <b>{{ subject.creator }}</b>
+        {{ subject.created_at }}
+    </div>
+{% endblock content%}
