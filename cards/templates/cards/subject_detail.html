@@ -2,7 +2,14 @@
 {% block content %}
     <div class="content-section">
         <h1>{{ subject.name }}</h1>
-        <b>{{ subject.creator }}</b>
-        {{ subject.created_at }}
+        <a href="{% url 'create_deck' subject_id=subject.id %}" class="btn btn-success">+ New Deck</a>
+        <h2>Decks</h2>
+            <ul>
+                {% for deck in subject.deck_set.all %}
+                    <li><a href="{% url 'deck_detail' deck_id=deck.id %}">{{ deck.name }}</a></li>
+                {% empty %}
+                    <li>No decks yet.</li>
+                {% endfor %}
+            </ul>
     </div>
 {% endblock content%}

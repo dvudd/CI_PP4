@@ -10,3 +10,11 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Deck(models.Model):
+    name = models.CharField(max_length=100)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name

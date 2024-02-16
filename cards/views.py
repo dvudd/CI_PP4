@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import SubjectForm
-from .models import Subject
+from .forms import SubjectForm, DeckForm
+from .models import Subject, Deck
 
 # Create your views here.
 def home(request):
@@ -28,3 +28,20 @@ def create_subject(request):
 def subject_detail(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)
     return render(request, 'cards/subject_detail.html', {'subject': subject})
+
+def create_deck(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id)
+    if request.method == 'POST':
+        form = DeckForm(request.POST)
+        if form.is_valid():
+            deck = form.save(commit=False)
+            deck.subject = subject
+            deck.save()
+            return redirect('deck_detail', deck_id=deck.id)
+    else:
+        form = DeckForm()
+    return render(request, 'cards/create_deck.html', {'form': form, 'subject': subject})
+
+def deck_detail(request, deck_id):
+    deck = get_object_or_404(Deck, id=deck_id)
+    return render(request, 'cards/deck_detail.html', {'deck': deck})
