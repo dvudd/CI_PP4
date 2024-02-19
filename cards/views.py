@@ -92,3 +92,15 @@ def create_card(request, deck_id):
 def card_detail(request, card_id):
     card = get_object_or_404(Card, id=card_id)
     return render(request, 'cards/card_detail.html', {'card': card})
+
+# Edit Card
+def edit_card(request, card_id):
+    card = get_object_or_404(Card, id=card_id)
+    if request.method == 'POST':
+        form = CardForm(request.POST, instance=card)
+        if form.is_valid():
+            form.save()
+            return redirect('card_detail', card_id=card.id)
+    else:
+        form = CardForm(instance=card)
+    return render(request, 'cards/card_edit.html', {'form': form})

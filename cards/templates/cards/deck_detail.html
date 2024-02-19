@@ -6,13 +6,10 @@
         <a href="{% url 'edit_deck' deck_id=deck.id %}" class="btn btn-secondary">Edit Deck</a>
         <h2>Cards</h2>
         <ul>
-            <ul>
-                {% for card in cards %}
-                    <li>{{ card.question }}</li>  <!-- Display each card's question -->
-                    <!-- You can also display card's answer and other fields as needed -->
-                {% empty %}
-                    <li>No cards in this deck yet.</li>
-                {% endfor %}
-            </ul>
+            {% for card in cards %}
+                <li><a href="{% url 'card_detail' card_id=card.id %}">{{ card.question }}</a></li>
+            {% empty %}
+                <li>No cards in this deck yet.</li>
+            {% endfor %}
         </ul>
 {% endblock content%}
