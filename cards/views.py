@@ -62,6 +62,18 @@ def deck_detail(request, deck_id):
     cards = deck.card_set.all()  # Retrieve all cards related to this deck
     return render(request, 'cards/deck_detail.html', {'deck': deck, 'cards': cards})
 
+# Edit Deck
+def edit_deck(request, deck_id):
+    deck = get_object_or_404(Deck, id=deck_id)
+    if request.method == 'POST':
+        form = DeckForm(request.POST, instance=deck)
+        if form.is_valid():
+            form.save()
+            return redirect('deck_detail', deck_id=deck.id)
+    else:
+        form = DeckForm(instance=deck)
+    return render(request, 'cards/deck_edit.html', {'form': form})
+
 # Create Card
 def create_card(request, deck_id):
     deck = get_object_or_404(Deck, id=deck_id)
