@@ -87,6 +87,17 @@ def edit_deck(request, deck_id):
         form = DeckForm(instance=deck)
     return render(request, 'cards/deck_edit.html', {'form': form})
 
+# Delete Deck
+@login_required
+def delete_deck(request, deck_id):
+    deck = get_object_or_404(Deck, id=deck_id)
+    if deck.subject.creator != request.user:
+        messages.error(request, "You do now have permission to delete this deck")
+        return redirect('deck_detail', deck_id=deck.id)
+    deck.delete()
+    messages.success(request, "Deck deleted successfully")
+    return redirect('subject_detail', subject_id=deck.subject.id)
+
 # Create Card
 def create_card(request, deck_id):
     deck = get_object_or_404(Deck, id=deck_id)

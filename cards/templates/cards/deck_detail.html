@@ -4,6 +4,7 @@
         <h1>{{ deck.name }}</h1>
         <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">+ New Card</a>
         <a href="{% url 'edit_deck' deck_id=deck.id %}" class="btn btn-secondary">Edit Deck</a>
+        <a href="{% url 'delete_deck' deck_id=deck.id %}" class="btn btn-danger">Delete Deck</a>
         <h2>Cards</h2>
         <ul>
             {% for card in cards %}
