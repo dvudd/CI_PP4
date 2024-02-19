@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SubjectForm, DeckForm, CardForm
 from .models import Subject, Deck, Card
 
-# Create your views here.
+# Home view
 def home(request):
     if request.user.is_authenticated:
         # Render a template with user-specific content for logged-in users
@@ -12,7 +12,7 @@ def home(request):
         # Render a generic template (index.html) for non-logged-in users
         return render(request, 'cards/index.html')
 
-
+# Create Subject
 def create_subject(request):
     if request.method == 'POST':
         form = SubjectForm(request.POST)
@@ -25,10 +25,24 @@ def create_subject(request):
         form = SubjectForm()
     return render(request, 'cards/create_subject.html', {'form': form})
 
+# Subject Details
 def subject_detail(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)
     return render(request, 'cards/subject_detail.html', {'subject': subject})
 
+# Edit Subject
+def edit_subject(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id, creator=request.user)
+    if request.method == 'POST':
+        form = SubjectForm(request.POST, instance=subject)
+        if form.is_valid():
+            form.save()
+            return redirect('subject_detail', subject_id=subject.id)
+    else:
+        form = SubjectForm(instance=subject)
+    return render(request, 'cards/subject_edit.html', {'form': form})
+
+# Create Deck
 def create_deck(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)
     if request.method == 'POST':
@@ -42,11 +56,13 @@ def create_deck(request, subject_id):
         form = DeckForm()
     return render(request, 'cards/create_deck.html', {'form': form, 'subject': subject})
 
+# Deck Details
 def deck_detail(request, deck_id):
     deck = get_object_or_404(Deck, id=deck_id)
     cards = deck.card_set.all()  # Retrieve all cards related to this deck
     return render(request, 'cards/deck_detail.html', {'deck': deck, 'cards': cards})
 
+# Create Card
 def create_card(request, deck_id):
     deck = get_object_or_404(Deck, id=deck_id)
     if request.method == 'POST':
@@ -60,6 +76,7 @@ def create_card(request, deck_id):
         form = CardForm()
     return render(request, 'cards/create_card.html', {'form': form, 'deck': deck})
 
+# Card Details
 def card_detail(request, card_id):
     card = get_object_or_404(Card, id=card_id)
     return render(request, 'cards/card_detail.html', {'card': card})

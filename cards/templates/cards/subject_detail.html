@@ -3,6 +3,7 @@
     <div class="content-section">
         <h1>{{ subject.name }}</h1>
         <a href="{% url 'create_deck' subject_id=subject.id %}" class="btn btn-success">+ New Deck</a>
+        <a href="{% url 'edit_subject' subject_id=subject.id %}" class="btn btn-secondary">Edit Subject</a>
         <h2>Decks</h2>
             <ul>
                 {% for deck in subject.deck_set.all %}
