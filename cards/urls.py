@@ -6,6 +6,7 @@ urlpatterns = [
     path('create_subject/', views.create_subject, name='create_subject'),
     path('subject/<int:subject_id>/', views.subject_detail, name='subject_detail'),
     path('subject/<int:subject_id>/edit/', views.edit_subject, name='edit_subject'),
+    path('subject/<int:subject_id>/delete/', views.delete_subject, name='delete_subject'),
     path('subject/<int:subject_id>/create_deck/', views.create_deck, name='create_deck'),
     path('deck/<int:deck_id>/', views.deck_detail, name='deck_detail'),
     path('deck/<int:deck_id>/edit/', views.edit_deck, name='edit_deck'),

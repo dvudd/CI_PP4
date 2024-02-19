@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import SubjectForm, DeckForm, CardForm
 from .models import Subject, Deck, Card
 
@@ -41,6 +43,17 @@ def edit_subject(request, subject_id):
     else:
         form = SubjectForm(instance=subject)
     return render(request, 'cards/subject_edit.html', {'form': form})
+
+# Delete Subject
+@login_required
+def delete_subject(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id)
+    if subject.creator != request.user:
+        messages.error(request, "You do not have permission to delete this subject")
+        return render(request, 'cards/subject_detail.html', {'subject': subject})
+    subject.delete()
+    messages.success(request, "Subject deleted successfully")
+    return redirect('cards-home')
 
 # Create Deck
 def create_deck(request, subject_id):
