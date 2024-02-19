@@ -23,7 +23,7 @@ def create_subject(request):
             return redirect('subject_detail', subject_id=subject.id)
     else:
         form = SubjectForm()
-    return render(request, 'cards/create_subject.html', {'form': form})
+    return render(request, 'cards/subject_create.html', {'form': form})
 
 # Subject Details
 def subject_detail(request, subject_id):
@@ -54,7 +54,7 @@ def create_deck(request, subject_id):
             return redirect('deck_detail', deck_id=deck.id)
     else:
         form = DeckForm()
-    return render(request, 'cards/create_deck.html', {'form': form, 'subject': subject})
+    return render(request, 'cards/deck_create.html', {'form': form, 'subject': subject})
 
 # Deck Details
 def deck_detail(request, deck_id):
@@ -86,7 +86,7 @@ def create_card(request, deck_id):
             return redirect('card_detail', card_id=card.id)
     else:
         form = CardForm()
-    return render(request, 'cards/create_card.html', {'form': form, 'deck': deck})
+    return render(request, 'cards/card_create.html', {'form': form, 'deck': deck})
 
 # Card Details
 def card_detail(request, card_id):
