@@ -128,3 +128,14 @@ def edit_card(request, card_id):
     else:
         form = CardForm(instance=card)
     return render(request, 'cards/card_edit.html', {'form': form})
+
+# Delete Card
+@login_required
+def delete_card(request, card_id):
+    card = get_object_or_404(Card, id=card_id)
+    if card.deck.subject.creator != request.user:
+        messages.error(request, "You do not have permission to delete this card.")
+        return redirect('card_detail', card_id=card.id)
+    card.delete()
+    messages.success(request, "Card deleted successfully")
+    return redirect('deck_detail', deck_id=card.deck.id)
