@@ -173,7 +173,7 @@ def delete_deck(request, deck_id):
 # Create Card
 @login_required
 def create_card(request, deck_id):
-        """
+    """
     Create a new card.
 
     Allows a logged-in user to create a new card. The user is redirected
@@ -228,7 +228,7 @@ def edit_card(request, card_id):
 # Delete Card
 @login_required
 def delete_card(request, card_id):
-        """
+    """
     Delete a existing card.
 
     Allows the creator of the subject to delete the card.
