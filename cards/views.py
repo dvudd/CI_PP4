@@ -182,7 +182,7 @@ def create_card(request, deck_id):
     deck = get_object_or_404(Deck, id=deck_id, subject__creator=request.user)
 
     if request.method == 'POST':
-        form = CardForm(request.POST)
+        form = CardForm(request.POST, request.FILES)
         if form.is_valid():
             card = form.save(commit=False)
             card.deck = deck

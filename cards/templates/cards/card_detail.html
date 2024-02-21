@@ -8,6 +8,13 @@
                 <a href="{% url 'delete_card' card_id=card.id %}" class="btn btn-danger">Delete Card</a>
             </div>
         {% endif %}
+        {% if card.question_image %}
+            <img src="{{ card.question_image.url }}" alt="Question Image">
+        {% endif %}
         <p>{{ card.question }}</p>
+        <br>
+        {% if card.answer_image %}
+            <img src="{{ card.answer_image.url }}" alt="Answer Image">
+        {% endif %}
         <p>{{ card.answer }}</p>
 {% endblock content%}
