@@ -1,8 +1,10 @@
 {% extends "cards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <a href="{% url 'edit_card' card_id=card.id %}" class="btn btn-secondary">Edit Card</a>
-        <a href="{% url 'delete_card' card_id=card.id %}" class="btn btn-danger">Delete Card</a>
+        {% if card.deck.subject.creator == user %}
+            <a href="{% url 'edit_card' card_id=card.id %}" class="btn btn-secondary">Edit Card</a>
+            <a href="{% url 'delete_card' card_id=card.id %}" class="btn btn-danger">Delete Card</a>
+        {% endif %}
         <p>{{ card.question }}</p>
         <p>{{ card.answer }}</p>
 {% endblock content%}
