@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 from .forms import SubjectForm, DeckForm, CardForm
 from .models import Subject, Deck, Card
 
@@ -240,3 +241,37 @@ def delete_card(request, card_id):
     card.delete()
     messages.success(request, "Card deleted successfully")
     return redirect('deck_detail', deck_id=card.deck.id)
+
+# Quiz view
+@login_required
+def quiz_view(request, deck_id):
+    deck = get_object_or_404(Deck, pk=deck_id, subject__creator=request.user)
+
+    return render(request, 'cards/quiz.html', {'deck_id': deck_id})
+
+# Quiz JSON data
+@login_required
+def quiz_data(request, deck_id):
+    deck = get_object_or_404(Deck, pk=deck_id, subject__creator=request.user)
+    
+    cards = list(deck.card_set.all())
+    data = []
+
+    for card in cards:
+        card_data = {
+            'question': card.question,
+            'answer': card.answer
+        }
+        
+        if card.question_image:
+            card_data['question_image'] = card.question_image.url
+        else:
+            card_data['question_image'] = ''
+        
+        if card.answer_image:
+            card_data['answer_image'] = card.answer_image.url
+        else:
+            card_data['answer_image'] = ''
+        data.append(card_data)
+
+    return JsonResponse({'cards': data})
