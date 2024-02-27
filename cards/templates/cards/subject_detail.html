@@ -1,15 +1,21 @@
 {% extends "cards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <a href="{% url 'cards-home' %}" class="btn btn-secondary">Back to Home</a>
-        <h1>{{ subject.name }}</h1>
-        {% if subject.creator == user %}
-            <div class="btn-group">
-                <a href="{% url 'create_deck' subject_id=subject.id %}" class="btn btn-success">+ New Deck</a>
-                <a href="{% url 'edit_subject' subject_id=subject.id %}" class="btn btn-warning">Edit Subject</a>
-                <a href="{% url 'delete_subject' subject_id=subject.id %}" class="btn btn-danger">Delete Subject</a>
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'cards-home' %}" class="btn btn-secondary">Back to Home</a>
             </div>
-        {% endif %}
+            <div class="col-8 text-end">
+                {% if subject.creator == user %}
+                    <div class="btn-group">
+                        <a href="{% url 'create_deck' subject_id=subject.id %}" class="btn btn-success">+ New Deck</a>
+                        <a href="{% url 'edit_subject' subject_id=subject.id %}" class="btn btn-warning">Edit Subject</a>
+                        <a href="{% url 'delete_subject' subject_id=subject.id %}" class="btn btn-danger">Delete Subject</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <h1>{{ subject.name }}</h1>
         <h2>Decks</h2>
             <ul>
                 {% for deck in subject.deck_set.all %}

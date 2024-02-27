@@ -1,21 +1,33 @@
 {% extends "cards/base.html" %}
 {% block content %}
     <div class="content-section">
-        <a href="{% url 'subject_detail' subject_id=deck.subject.id %}" class="btn btn-secondary">Back to Subject</a>
-        <h1>{{ deck.name }}</h1>
-        {% if deck.subject.creator == user %}
-            <div class="btn-group">
-                <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">+ New Card</a>
-                <a href="{% url 'edit_deck' deck_id=deck.id %}" class="btn btn-warning">Edit Deck</a>
-                <a href="{% url 'delete_deck' deck_id=deck.id %}" class="btn btn-danger">Delete Deck</a>
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'subject_detail' subject_id=deck.subject.id %}" class="btn btn-secondary">Back to Subject</a>
+            </div>
+            <div class="col-8 text-end">
+            {% if deck.subject.creator == user %}
+                <div class="btn-group">
+                    <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">+ New Card</a>
+                    <a href="{% url 'edit_deck' deck_id=deck.id %}" class="btn btn-warning">Edit Deck</a>
+                    <a href="{% url 'delete_deck' deck_id=deck.id %}" class="btn btn-danger">Delete Deck</a>
+                </div>
             </div>
         {% endif %}
+        </div>
+        <h1>{{ deck.name }}</h1>
         <h2>Cards</h2>
         <ul>
-            {% for card in cards %}
-                <li><a href="{% url 'card_detail' card_id=card.id %}">{{ card.question }}</a></li>
-            {% empty %}
-                <li>No cards in this deck yet.</li>
-            {% endfor %}
+            <div class="d-flex flex-column bd-highlight mb-3">
+                {% for card in cards %}
+                <div class="p-2 bd-highlight border">
+                    <a href="{% url 'card_detail' card_id=card.id %}">{{ card.question }}</a>
+                </div>
+                    {% empty %}
+                <div class="p-2 bd-highlight"></div>
+                    No cards in this deck yet.
+                </div>
+                {% endfor %}
+            </div>
         </ul>
 {% endblock content%}
