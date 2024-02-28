@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .forms import SubjectForm, DeckForm, CardForm
 from .models import Subject, Deck, Card
+from django.core.serializers import serialize
+import json
 
 # Home view
 def home(request):
@@ -246,32 +248,5 @@ def delete_card(request, card_id):
 @login_required
 def quiz_view(request, deck_id):
     deck = get_object_or_404(Deck, pk=deck_id, subject__creator=request.user)
-
-    return render(request, 'cards/quiz.html', {'deck_id': deck_id})
-
-# Quiz JSON data
-@login_required
-def quiz_data(request, deck_id):
-    deck = get_object_or_404(Deck, pk=deck_id, subject__creator=request.user)
-    
-    cards = list(deck.card_set.all())
-    data = []
-
-    for card in cards:
-        card_data = {
-            'question': card.question,
-            'answer': card.answer
-        }
-        
-        if card.question_image:
-            card_data['question_image'] = card.question_image.url
-        else:
-            card_data['question_image'] = ''
-        
-        if card.answer_image:
-            card_data['answer_image'] = card.answer_image.url
-        else:
-            card_data['answer_image'] = ''
-        data.append(card_data)
-
-    return JsonResponse({'cards': data})
+    cards = list(deck.card_set.all().values('question', 'question_image', 'answer', 'answer_image'))
+    return render(request, 'cards/quiz.html', {'deck_id': deck_id, 'cards': cards})

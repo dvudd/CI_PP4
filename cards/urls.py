@@ -16,5 +16,4 @@ urlpatterns = [
     path('card/<int:card_id>/edit/', views.edit_card, name='edit_card'),
     path('card/<int:card_id>/delete/', views.delete_card, name='delete_card'),
     path('deck/<int:deck_id>/quiz/', views.quiz_view, name='quiz_view'),
-    path('deck/<int:deck_id>/quiz_data/', views.quiz_data, name='quiz_data'),
 ]

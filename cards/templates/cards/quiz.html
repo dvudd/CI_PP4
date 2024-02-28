@@ -2,10 +2,11 @@
 {% load static %}
 {% block content %}
     <div>
-        hello world
+        {{ deck_id }}
     </div>
 {% endblock content %}
 
 {% block extra_js %}
+    {{ cards|json_script:"cards-data" }}
     <script src="{% static 'js/quiz.js' %}"></script>
 {% endblock extra_js %}
