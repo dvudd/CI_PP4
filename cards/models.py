@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
+from django.core.exceptions import ValidationError
 from PIL import Image
 from io import BytesIO
 import os
@@ -17,6 +18,7 @@ class Subject(models.Model):
     
 class Deck(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
@@ -27,14 +29,21 @@ def card_img(instance, filename):
     return 'user_{0}/{1}'.format(instance.deck.subject.creator.username, filename)
 
 class Card(models.Model):
-    question = models.TextField()
+    question = models.TextField(blank=True)
     question_image = models.ImageField(upload_to=card_img, blank=True, null=True)
-    answer = models.TextField()
+    answer = models.TextField(blank=True)
     answer_image = models.ImageField(upload_to=card_img, blank=True, null=True)
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
+    def clean(self):
+        if not self.question and not self.question_image:
+            raise ValidationError('You must provide either a question or an image.')
+        if not self.answer and not self.answer_image:
+            raise ValidationError('You must provide either a answer or an image.')
+
     def save(self, *args, **kwargs):
+        self.clean()
         # Process question image
         if self.question_image:
             self.process_image(self.question_image)

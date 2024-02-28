@@ -9,7 +9,7 @@ class SubjectForm(forms.ModelForm):
 class DeckForm(forms.ModelForm):
     class Meta:
         model = Deck
-        fields = ['name']
+        fields = ['name', 'description']
 
 class CardForm(forms.ModelForm):
     class Meta:

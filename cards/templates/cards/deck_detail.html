@@ -16,6 +16,7 @@
         {% endif %}
         </div>
         <h1>{{ deck.name }}</h1>
+        <p>{{ deck.description }}</p>
         <a href="{% url 'quiz_view' deck_id=deck.id %}" class="btn btn-success">Start Quiz</a>
         <h2>Cards</h2>
         <ul>
