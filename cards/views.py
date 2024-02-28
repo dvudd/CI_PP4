@@ -248,5 +248,15 @@ def delete_card(request, card_id):
 @login_required
 def quiz_view(request, deck_id):
     deck = get_object_or_404(Deck, pk=deck_id, subject__creator=request.user)
-    cards = list(deck.card_set.all().values('question', 'question_image', 'answer', 'answer_image'))
-    return render(request, 'cards/quiz.html', {'deck_id': deck_id, 'cards': cards})
+
+    cards = deck.card_set.all()
+    data = []
+    for card in cards:
+        card_data = {
+            'question': card.question,
+            'answer': card.answer,
+            'question_image': request.build_absolute_uri(card.question_image.url) if card.question_image else '',
+            'answer_image': request.build_absolute_uri(card.answer_image.url) if card.answer_image else '',
+        }
+        data.append(card_data)
+    return render(request, 'cards/quiz.html', {'deck_id': deck_id, 'cards': data})
