@@ -1,10 +1,17 @@
 {% extends "cards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h2>Edit Card</h2>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button type="submit">Save changes</button>
-    </form>
+    <div class="content-section">
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'edit_deck' deck_id=card.deck.id %}" class="btn btn-secondary">Back to Deck</a>
+            </div>
+        </div>
+        <h2>Edit Card</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit">Save changes</button>
+        </form>
+    </div>
 {% endblock content %}

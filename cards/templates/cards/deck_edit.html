@@ -1,10 +1,47 @@
 {% extends "cards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h2>Edit Deck</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button type="submit">Save changes</button>
-    </form>
+    <div class="content-section">
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary">Back to Deck</a>
+            </div>
+        </div>
+        <h2>Edit Deck</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit">Save changes</button>
+        </form>
+        <h2>Cards</h2>
+            <ul>
+                <div class="d-flex flex-column bd-highlight mb-3">
+                    {% for card in cards %}
+                    <div class="row bd-highlight border">
+                        <div class="col-6 col-sm-3">
+                            {{ card.question }}
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            {% if card.question_image %}
+                                <img src="{{ card.question_image.url }}" class="img-thumbnail rounded" alt="Question Image">
+                            {% endif %}
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            {{ card.answer }}
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            {% if card.answer_image %}
+                                <img src="{{ card.answer_image.url }}" class="img-thumbnail rounded" alt="Answer Image">
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'edit_card' card_id=card.id %}">Edit</a>
+                    </div>
+                        {% empty %}
+                    <div class="p-2 bd-highlight"></div>
+                        No cards in this deck yet.
+                    </div>
+                    {% endfor %}
+                </div>
+            </ul>
+    </div>
 {% endblock content %}

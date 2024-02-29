@@ -146,6 +146,7 @@ def edit_deck(request, deck_id):
     """
     deck = get_object_or_404(Deck, id=deck_id, subject__creator=request.user)
 
+    cards = deck.card_set.all()
     if request.method == 'POST':
         form = DeckForm(request.POST, instance=deck)
         if form.is_valid():
@@ -153,7 +154,7 @@ def edit_deck(request, deck_id):
             return redirect('deck_detail', deck_id=deck.id)
     else:
         form = DeckForm(instance=deck)
-    return render(request, 'cards/deck_edit.html', {'form': form})
+    return render(request, 'cards/deck_edit.html', {'form': form, 'deck': deck, 'cards': cards,})
 
 # Delete Deck
 @login_required
@@ -227,7 +228,7 @@ def edit_card(request, card_id):
             return redirect('card_detail', card_id=card.id)
     else:
         form = CardForm(instance=card)
-    return render(request, 'cards/card_edit.html', {'form': form})
+    return render(request, 'cards/card_edit.html', {'form': form, 'card': card})
 
 # Delete Card
 @login_required
