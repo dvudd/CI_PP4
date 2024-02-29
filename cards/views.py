@@ -77,7 +77,7 @@ def edit_subject(request, subject_id):
             return redirect('subject_detail', subject_id=subject.id)
     else:
         form = SubjectForm(instance=subject)
-    return render(request, 'cards/subject_edit.html', {'form': form})
+    return render(request, 'cards/subject_edit.html', {'form': form, 'subject': subject})
 
 # Delete Subject
 @login_required

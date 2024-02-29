@@ -2,6 +2,11 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary">Back to Deck</a>
+            </div>
+        </div>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">

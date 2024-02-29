@@ -2,6 +2,11 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'cards-home' %}" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
