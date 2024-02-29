@@ -131,7 +131,8 @@ def deck_detail(request, deck_id):
     """
     deck = get_object_or_404(Deck, id=deck_id, subject__creator=request.user)
     cards = deck.card_set.all()
-    return render(request, 'cards/deck_detail.html', {'deck': deck, 'cards': cards})
+    num_cards = deck.card_set.count()
+    return render(request, 'cards/deck_detail.html', {'deck': deck, 'cards': cards, 'num_cards': num_cards})
 
 # Edit Deck
 @login_required
