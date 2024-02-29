@@ -5,6 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentCardIndex = 0;
 
+    // Navigation button states
+    function updateButtonStates() {
+        // Handle the previous button state
+        if (currentCardIndex <= 0) {
+            document.getElementById('prev-question-btn').classList.add('disabled');
+        } else {
+            document.getElementById('prev-question-btn').classList.remove('disabled');
+        }
+        
+        // Handle the next button state
+        if (currentCardIndex >= cardsData.length - 1) {
+            document.getElementById('next-question-btn').classList.add('disabled');
+        } else {
+            document.getElementById('next-question-btn').classList.remove('disabled');
+        }
+    }
+
     // Show the question
     function displayQuestion() {
         const card = cardsData[currentCardIndex];
@@ -17,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             questionImage.style.display = 'none';
         }
+        updateButtonStates();
     }
 
     // Show the answer
@@ -36,15 +54,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for reveal button
     document.getElementById('reveal-answer-btn').addEventListener('click', revealAnswer);
+    
     // Event listener for next question button
     document.getElementById('next-question-btn').addEventListener('click', function() {
         currentCardIndex += 1;
         if (currentCardIndex < cardsData.length) {
             displayQuestion();
             document.getElementById('answer-area').style.display = 'none';
-        } else {
-            alert('Quiz completed!');
-        }
+        };
+    });
+
+    // Event listener for previous question button
+    document.getElementById('prev-question-btn').addEventListener('click', function() {
+         if (currentCardIndex > 0) {
+            currentCardIndex -= 1;
+            displayQuestion();
+         }
     });
 
     displayQuestion();

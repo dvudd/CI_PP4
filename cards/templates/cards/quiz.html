@@ -1,28 +1,31 @@
 {% extends "cards/base.html" %}
 {% load static %}
 {% block content %}
-<div class="content-section">
-    <div class="row">
-        <div class="col-4">
-            <a href="{% url 'deck_detail' deck_id=deck_id %}" class="btn btn-secondary">Back to Deck</a>
+    <div class="content-section">
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'deck_detail' deck_id=deck_id %}" class="btn btn-secondary">Back to Deck</a>
+            </div>
+            <div class="col-8 text-end">
+                    <div class="btn-group">
+                        <button id="prev-question-btn" class="btn btn-success disabled">Previous Question</button>
+                        <button id="next-question-btn" class="btn btn-success">Next Question</button>
+                    </div>
+            </div>
         </div>
-        <div class="col-8 text-end">
-                <div class="btn-group">
-                    <button id="reveal-answer-btn" class="btn btn-success active">Reveal Answer</button>
-                    <button id="next-question-btn" class="btn btn-success">Next Question</button>
-                </div>
+        <div id="question-area" class="row g-2 p-3">
+            <img id="question-image" class="img-fluid" style="display:none;">
+            <div id="question-text"></div>
+        </div>
+        <div class="row justify-content-center">
+            <button id="reveal-answer-btn" class="btn btn-success active">Reveal Answer</button>
+        </div>
+        <div id="answer-area" class="row g-2 p-3" style="display:none;">
+            <img id="answer-image" class="img-fluid" style="display:none;">
+            <div id="answer-text"></div>
         </div>
     </div>
-    <div id="question-area" class="row g-2 p-3">
-        <img id="question-image" style="display:none;">
-        <div id="question-text"></div>
-    </div>
-    <div id="answer-area" class="row g-2 p-3" style="display:none;">
-        <img id="answer-image" style="display:none;">
-        <div id="answer-text"></div>
-    </div>
-</div>
-{% endblock content %}
+    {% endblock content %}
 
 {% block extra_js %}
     {{ cards|json_script:"cards-data" }}
