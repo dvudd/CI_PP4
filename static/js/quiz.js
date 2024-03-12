@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
          if (currentCardIndex > 0) {
             currentCardIndex -= 1;
             displayQuestion();
+            document.getElementById('answer-area').style.display = 'none';
          }
     });
 
