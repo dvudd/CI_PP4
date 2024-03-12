@@ -261,4 +261,4 @@ def quiz_view(request, deck_id):
             'answer_image': request.build_absolute_uri(card.answer_image.url) if card.answer_image else '',
         }
         data.append(card_data)
-    return render(request, 'cards/quiz.html', {'deck_id': deck_id, 'cards': data})
+    return render(request, 'cards/quiz.html', {'deck': deck, 'cards': data})
