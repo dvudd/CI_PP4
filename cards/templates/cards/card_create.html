@@ -4,7 +4,7 @@
     <div class="content-section">
         <div class="row">
             <div class="col-4">
-                <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary">Back to Deck</a>
+                <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary"><i class="bi bi-arrow-left-square-fill"></i> {{ deck.name }}</a>
             </div>
         </div>
         <form method="POST" enctype="multipart/form-data">

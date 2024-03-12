@@ -3,12 +3,12 @@
     <div class="content-section">
         <div class="row">
             <div class="col-4">
-                <a href="{% url 'cards-home' %}" class="btn btn-secondary">Back to Home</a>
+                <a href="{% url 'cards-home' %}" class="btn btn-secondary"><i class="bi bi-arrow-left-square-fill"></i> Home</a>
             </div>
             <div class="col-8 text-end">
                 {% if subject.creator == user %}
                     <div class="btn-group">
-                        <a href="{% url 'create_deck' subject_id=subject.id %}" class="btn btn-success">+ New Deck</a>
+                        <a href="{% url 'create_deck' subject_id=subject.id %}" class="btn btn-success"><i class="bi bi-plus-square-fill"></i> Add Deck</a>
                     </div>
                 {% endif %}
             </div>
