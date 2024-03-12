@@ -10,11 +10,17 @@
             </div>
         </div>
         <h1>{{ user.first_name }}'s Subjects</h1>
-        <ul>
+            <ul class="list-group">
             {% for subject in user_subjects %}
-                <li><a href="{% url 'subject_detail' subject_id=subject.id %}">{{ subject.name }}</a></li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{% url 'subject_detail' subject_id=subject.id %}" class="list-group-item-action">{{ subject.name }}</a>
+                <div class="btn-group" role="group">
+                    <a href="{% url 'edit_subject' subject_id=subject.id %}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteUrl('{% url 'delete_subject' subject_id=subject.id %}');"><i class="bi bi-trash"></i></a>
+                </div>
+            </li>
             {% empty %}
-                <li>You do not have any subjects yet.</li>
+                You do not have any subjects yet.
             {% endfor %}
         </ul>
     </div>
