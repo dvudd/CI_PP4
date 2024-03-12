@@ -12,7 +12,7 @@
         <h1>{{ user.first_name }}'s Subjects</h1>
             <ul class="list-group">
             {% for subject in user_subjects %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center fs-5 text">
                 <a href="{% url 'subject_detail' subject_id=subject.id %}" class="list-group-item-action">{{ subject.name }}</a>
                 <div class="btn-group" role="group">
                     <a href="{% url 'edit_subject' subject_id=subject.id %}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
