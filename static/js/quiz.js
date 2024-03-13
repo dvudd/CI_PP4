@@ -26,17 +26,23 @@ document.addEventListener('DOMContentLoaded', function() {
     let touchStart = 0;
     let touchEnd = 0;
     const questionArea = document.getElementById('question-area');
+    const minimumDistance = 75; // Minimum distance for a swipe to be considered valid
 
     function swipe() {
-        if (touchEnd < touchStart) {
+        let distance = touchEnd - touchStart;
+        // If the swipe distance is less than the minimum, don't do anything
+        if (Math.abs(distance) < minimumDistance) {
+            return;
+        };
+
+        if (distance < 0) {
             // Swipe Left - Show Next Question
             document.getElementById('next-question-btn').click();
-        }
-        if (touchEnd > touchStart) {
+        } else if (distance > 0) {
             // Swipe Right - Show Previous Question
             document.getElementById('prev-question-btn').click();
-        }
-    }
+        };
+    };
 
     questionArea.addEventListener('touchstart', e => {
         touchStart = e.changedTouches[0].screenX;
@@ -63,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('question-text').textContent = card.question;
         } else {
             document.getElementById("question-text").classList.add("visually-hidden");
+            document.getElementById('question-area').style.display = '';
         }
         updateButtonStates();
     }
