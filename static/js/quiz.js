@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let touchStart = 0;
     let touchEnd = 0;
     const questionArea = document.getElementById('question-area');
-    const minimumDistance = 75; // Minimum distance for a swipe to be considered valid
+    const minimumDistance = 75;
 
     function swipe() {
         let distance = touchEnd - touchStart;
@@ -66,10 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (card.question) {
             document.getElementById("question-text").classList.remove("visually-hidden");
-            document.getElementById('question-text').textContent = card.question;
+            document.getElementById("question-text").style.minHeight = '24rem';
+            document.getElementById("question-text").textContent = card.question;
         } else {
             document.getElementById("question-text").classList.add("visually-hidden");
-            document.getElementById('question-area').style.display = '';
+            document.getElementById("question-area").style.display = '';
         }
         updateButtonStates();
     }
