@@ -2,30 +2,39 @@
 {% load static %}
 {% block content %}
     <div class="content-section">
+        <!-- Navigation buttons -->
         <div class="row">
             <div class="col-4">
                 <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary"><i class="bi bi-arrow-left-square-fill"></i> {{ deck.name }}</a>
             </div>
-            <div class="col-8 text-end">
-                    <div class="btn-group">
-                        <button id="prev-question-btn" class="btn btn-success disabled">Previous Question</button>
-                        <button id="next-question-btn" class="btn btn-success">Next Question</button>
-                    </div>
+
+        </div>
+        <!-- Question Area -->
+        <div id="question-area" class="card text-bg-light mb-3" style="min-height: 24rem;">
+                <img id="question-image" class="img-fluid rounded">
+                <div id="question-text" class="card-body">
+                    <p id="question-text" class="card-text"></p>
+                </div>
+        </div>
+        <!-- Navigation Buttons -->
+        <div class="row">
+            <div class="col align-items-start">
+                <button id="prev-question-btn" class="btn btn-lg"><i class="bi bi-arrow-left-square-fill"></i></button>
+            </div>
+            <div class="col align-items-center text-center">
+                <button id="reveal-answer-btn" class="btn btn-lg">Reveal Answer</button>
+            </div>
+            <div class="col align-items-end text-end">
+                <button id="next-question-btn" class="btn btn-lg"><i class="bi bi-arrow-right-square-fill"></i></button>
             </div>
         </div>
-        <div id="question-area" class="row g-2 p-3">
-            <img id="question-image" class="img-fluid rounded" style="display:none;">
-            <div id="question-text"></div>
-        </div>
-        <div class="row justify-content-center">
-            <button id="reveal-answer-btn" class="btn btn-success active">Reveal Answer</button>
-        </div>
+        <!-- Answer Area -->
         <div id="answer-area" class="row g-2 p-3" style="display:none;">
             <img id="answer-image" class="img-fluid rounded" style="display:none;">
             <div id="answer-text"></div>
         </div>
     </div>
-    {% endblock content %}
+{% endblock content %}
 
 {% block extra_js %}
     {{ cards|json_script:"cards-data" }}
