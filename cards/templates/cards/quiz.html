@@ -14,26 +14,29 @@
             <div class="col align-items-start">
                 <button id="prev-question-btn" class="btn btn-lg"><i class="bi bi-arrow-left-square-fill"></i></button>
             </div>
-            <div class="col align-items-center text-center">
-                <button id="reveal-answer-btn" class="btn btn-lg">Reveal Answer</button>
-            </div>
             <div class="col align-items-end text-end">
                 <button id="next-question-btn" class="btn btn-lg"><i class="bi bi-arrow-right-square-fill"></i></button>
             </div>
         </div>
-        <!-- Question Area -->
-        <div id="question-area" class="card text-bg-light mb-3">
-                <img id="question-image" class="img-fluid rounded">
-                <div id="question-text" class="card-body">
-                    <p id="question-text" class="card-text"></p>
+        <!-- Quiz Area -->
+        <section id="quiz-card" class="card text-bg-light mb-3" style="height: 24rem;">
+                <div class="card-front row align-items-center">
+                    <div id="question-image-area" class="col-md-6 d-flex align-items-center justify-content-center card-col">
+                        <img id="question-image" class="img-thumbnail">
+                    </div>
+                    <div id="question-text-area" class="col-md-6 d-flex align-items-center justify-content-center card-col">
+                        <p id="question-text" class="card-text"></p>
+                    </div>
                 </div>
-        </div>
-        <!-- Answer Area -->
-        <div id="answer-area" class="row g-2 p-3" style="display:none;">
-            <img id="answer-image" class="img-fluid rounded" style="display:none;">
-            <div id="answer-text"></div>
-        </div>
-    </div>
+                <div class="card-back row align-items-center">
+                    <div id="answer-image-area" class="col-md-6 d-flex align-items-center justify-content-center card-col">
+                        <img id="answer-image" class="img-thumbnail">
+                    </div>
+                    <div id="answer-text-area" class="col-md-6 d-flex align-items-center justify-content-center card-col">
+                        <p id="answer-text" class="card-text"></p>
+                    </div>
+                </div>
+        </section>
 {% endblock content %}
 
 {% block extra_js %}

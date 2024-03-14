@@ -82,3 +82,47 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+
+  /* Quiz Cards */
+ .img-thumbnail {
+   max-height: 100%;
+   object-fit: contain;
+   object-position: center;
+  background-color: transparent;
+}
+
+.card-col {
+  height: 100%;
+}
+
+.card {
+  perspective: 1000px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden; /* Chrome, Opera, IE */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Animations */
+/* Card flip animation */
+.flip {
+  transform: rotateY(180deg);
+}

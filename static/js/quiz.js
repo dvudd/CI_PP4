@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Touch
     let touchStart = 0;
     let touchEnd = 0;
-    const questionArea = document.getElementById('question-area');
+    const questionArea = document.getElementById('quiz-card');
     const minimumDistance = 75;
 
     function swipe() {
@@ -53,52 +53,61 @@ document.addEventListener('DOMContentLoaded', function() {
         swipe();
     });
 
+    // Flip the card
+    document.getElementById('quiz-card').addEventListener('click', function() {
+        document.getElementById('quiz-card').classList.toggle('flip');
+    });
+
     // Show the question
     function displayQuestion() {
         const card = cardsData[currentCardIndex];
-        // Display the question image, if there is one
         const questionImage = document.getElementById('question-image');
+        const answerImage = document.getElementById('answer-image');
+        // Display the question image, if there is one
         if (card.question_image) {
-            document.getElementById("question-image").classList.remove("visually-hidden");
             questionImage.src = card.question_image;
+            document.getElementById("question-image-area").classList.remove("visually-hidden");
+            document.getElementById("question-text-area").classList.remove("col-md-12");
         } else {
-            document.getElementById("question-image").classList.add("visually-hidden");
+            document.getElementById("question-image-area").classList.add("visually-hidden");
+            document.getElementById("question-text-area").classList.add("col-md-12");
         }
+        // Display the question text, if there is one
         if (card.question) {
-            document.getElementById("question-text").classList.remove("visually-hidden");
-            document.getElementById("question-text").style.minHeight = '24rem';
             document.getElementById("question-text").textContent = card.question;
+            document.getElementById("question-text-area").classList.remove("visually-hidden");
+            document.getElementById("question-image-area").classList.remove("col-md-12");
         } else {
-            document.getElementById("question-text").classList.add("visually-hidden");
-            document.getElementById("question-area").style.display = '';
+            document.getElementById("question-text-area").classList.add("visually-hidden");
+            document.getElementById("question-image-area").classList.add("col-md-12");
+        }
+        // Display the answer image, if there is one
+        if (card.answer_image) {
+            answerImage.src = card.answerimage;
+            document.getElementById("answer-image-area").classList.remove("visually-hidden");
+            document.getElementById("answer-text-area").classList.remove("col-md-12");
+        } else {
+            document.getElementById("answer-image-area").classList.add("visually-hidden");
+            document.getElementById("answer-text-area").classList.add("col-md-12");
+        }
+        // Display the answer text, if there is one
+        if (card.answer) {
+            document.getElementById("answer-text").textContent = card.answer;
+            document.getElementById("answer-text-area").classList.remove("visually-hidden");
+            document.getElementById("answer-image-area").classList.remove("col-md-12");
+        } else {
+            document.getElementById("answer-text-area").classList.add("visually-hidden");
+            document.getElementById("answer-image-area").classList.add("col-md-12");
         }
         updateButtonStates();
     }
-
-    // Show the answer
-    function revealAnswer() {
-        const card = cardsData[currentCardIndex];
-        document.getElementById('answer-text').textContent = card.answer;
-        // Display the answer image, if there is one
-        const answerImage = document.getElementById('answer-image');
-        if (card.answer_image) {
-            answerImage.src = card.answer_image;
-            answerImage.style.display = '';
-        } else {
-            answerImage.style.display = 'none';
-        }
-        document.getElementById('answer-area').style.display = '';
-    }
-
-    // Event listener for reveal button
-    document.getElementById('reveal-answer-btn').addEventListener('click', revealAnswer);
-    
+  
     // Event listener for next question button
     document.getElementById('next-question-btn').addEventListener('click', function() {
         currentCardIndex += 1;
         if (currentCardIndex < cardsData.length) {
+            document.getElementById('quiz-card').classList.remove('flip');
             displayQuestion();
-            document.getElementById('answer-area').style.display = 'none';
         };
     });
 
@@ -106,8 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prev-question-btn').addEventListener('click', function() {
          if (currentCardIndex > 0) {
             currentCardIndex -= 1;
+            document.getElementById('quiz-card').classList.remove('flip');
             displayQuestion();
-            document.getElementById('answer-area').style.display = 'none';
          }
     });
 
