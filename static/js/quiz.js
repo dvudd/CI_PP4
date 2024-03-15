@@ -1,8 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Load the Card data
     const cardsData = JSON.parse(document.getElementById('cards-data').textContent);
-    console.log(cardsData); // REMOVE THIS
-    
+
+    // Shuffle the order of the questions
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          // Generate random index
+          const j = Math.floor(Math.random() * (i + 1));
+          // Swap elements at indices i and j
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      };
+     shuffle(cardsData);
+
     let currentCardIndex = 0;
 
     // Navigation button states
@@ -22,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Touch
+    // Touch Controls
     let touchStart = 0;
     let touchEnd = 0;
     const questionArea = document.getElementById('quiz-card');
@@ -113,8 +123,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for next question button
     document.getElementById('next-question-btn').addEventListener('click', async function() {
-        currentCardIndex += 1;
         if (currentCardIndex < cardsData.length) {
+            currentCardIndex += 1;
             if (document.getElementById('quiz-card').classList.contains('flip')) {
                 document.getElementById('quiz-card').classList.remove('flip');
                 await sleep(200);
