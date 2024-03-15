@@ -101,7 +101,6 @@ body {
   height: 100%;
 }
 
-
 .card {
   perspective: 1000px;
   position: relative;
@@ -134,17 +133,62 @@ body {
   transform: rotateY(180deg);
 }
 
-.flip-half {
-  animation: FlipHalf 0.8s;
+/* Move current card to the left and fade out */
+.fade-out-left {
+  animation: FadeOutLeft 0.5s forwards;
 }
-@keyframes FlipHalf {
-  0% {
-    transform: rotateY(0);
+@keyframes FadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
   }
-  50% {
-    transform: rotateY(90deg);
+  to {
+    opacity: 0.5;
+    transform: translateX(-50%);
   }
-  100% {
-    transform: rotateY(0);
+}
+
+/* Move current card to the left and fade in */
+.fade-in-left {
+  animation: FadeInLeft 0.5s forwards;
+}
+@keyframes FadeInLeft {
+  from {
+    opacity: 0.5;
+    transform: translateX(50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Move current card to the right and fade out */
+.fade-out-right {
+  animation: FadeOutRight 0.5s forwards;
+}
+@keyframes FadeOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.5;
+    transform: translateX(50%);
+  }
+}
+
+/* Move current card to the right and fade in */
+.fade-in-right {
+  animation: FadeInRight 0.5s forwards;
+}
+@keyframes FadeInRight {
+  from {
+    opacity: 0.5;
+    transform: translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

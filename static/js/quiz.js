@@ -131,11 +131,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 displayQuestion();
             }
             else {
-                document.getElementById('quiz-card').classList.add('flip-half');
-                await sleep(300);
+                document.getElementById('quiz-card').classList.add('fade-out-left');
+                await sleep(200);
+                document.getElementById('quiz-card').classList.remove('fade-out-left');
+                document.getElementById('quiz-card').classList.remove('flip');
+                document.getElementById('quiz-card').classList.add('fade-in-left');
                 displayQuestion();
-                await sleep(300);
-                document.getElementById('quiz-card').classList.remove('flip-half');
+                await sleep(500);
+                document.getElementById('quiz-card').classList.remove('fade-in-left');
             }
         };
     });
@@ -150,11 +153,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 displayQuestion();
             }
             else {
-                document.getElementById('quiz-card').classList.add('flip-half');
-                await sleep(300);
+                document.getElementById('quiz-card').classList.add('fade-out-right');
+                await sleep(200);
+                document.getElementById('quiz-card').classList.remove('fade-out-right');
+                document.getElementById('quiz-card').classList.remove('flip');
+                document.getElementById('quiz-card').classList.add('fade-in-right');
                 displayQuestion();
-                await sleep(300);
-                document.getElementById('quiz-card').classList.remove('flip-half');
+                await sleep(500);
+                document.getElementById('quiz-card').classList.remove('fade-in-right');
             }
          }
     });
