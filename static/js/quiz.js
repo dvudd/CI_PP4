@@ -102,21 +102,50 @@ document.addEventListener('DOMContentLoaded', function() {
         updateButtonStates();
     }
   
+    /**
+     * Sleep function
+     * @param {time} ms 
+     * CREDIT: https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+     */
+    function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+    };
+
     // Event listener for next question button
-    document.getElementById('next-question-btn').addEventListener('click', function() {
+    document.getElementById('next-question-btn').addEventListener('click', async function() {
         currentCardIndex += 1;
         if (currentCardIndex < cardsData.length) {
-            document.getElementById('quiz-card').classList.remove('flip');
-            displayQuestion();
+            if (document.getElementById('quiz-card').classList.contains('flip')) {
+                document.getElementById('quiz-card').classList.remove('flip');
+                await sleep(200);
+                displayQuestion();
+            }
+            else {
+                document.getElementById('quiz-card').classList.add('flip-half');
+                await sleep(300);
+                displayQuestion();
+                await sleep(300);
+                document.getElementById('quiz-card').classList.remove('flip-half');
+            }
         };
     });
 
     // Event listener for previous question button
-    document.getElementById('prev-question-btn').addEventListener('click', function() {
+    document.getElementById('prev-question-btn').addEventListener('click', async function() {
          if (currentCardIndex > 0) {
             currentCardIndex -= 1;
-            document.getElementById('quiz-card').classList.remove('flip');
-            displayQuestion();
+            if (document.getElementById('quiz-card').classList.contains('flip')) {
+                document.getElementById('quiz-card').classList.remove('flip');
+                await sleep(200);
+                displayQuestion();
+            }
+            else {
+                document.getElementById('quiz-card').classList.add('flip-half');
+                await sleep(300);
+                displayQuestion();
+                await sleep(300);
+                document.getElementById('quiz-card').classList.remove('flip-half');
+            }
          }
     });
 
