@@ -11,7 +11,9 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form | crispy }}
-            <button type="submit">Save changes</button>
+            <div class="text-end">
+                <button type="submit" class="btn btn-success">Save changes</button>
+            </div>
         </form>
     </div>
 {% endblock content %}
