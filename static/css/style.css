@@ -88,12 +88,18 @@ body {
    max-height: 100%;
    object-fit: contain;
    object-position: center;
-  background-color: transparent;
+   background-color: transparent;
+   border: none;
 }
 
-.card-col {
+.card-row-half {
+  height: 50%;
+}
+
+.card-row-full {
   height: 100%;
 }
+
 
 .card {
   perspective: 1000px;

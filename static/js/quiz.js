@@ -67,37 +67,37 @@ document.addEventListener('DOMContentLoaded', function() {
         if (card.question_image) {
             questionImage.src = card.question_image;
             document.getElementById("question-image-area").classList.remove("visually-hidden");
-            document.getElementById("question-text-area").classList.remove("col-md-12");
+            document.getElementById("question-text-area").classList.remove("card-row-full");
         } else {
             document.getElementById("question-image-area").classList.add("visually-hidden");
-            document.getElementById("question-text-area").classList.add("col-md-12");
+            document.getElementById("question-text-area").classList.add("card-row-full");
         }
         // Display the question text, if there is one
         if (card.question) {
             document.getElementById("question-text").textContent = card.question;
             document.getElementById("question-text-area").classList.remove("visually-hidden");
-            document.getElementById("question-image-area").classList.remove("col-md-12");
+            document.getElementById("question-image-area").classList.remove("card-row-full");
         } else {
             document.getElementById("question-text-area").classList.add("visually-hidden");
-            document.getElementById("question-image-area").classList.add("col-md-12");
+            document.getElementById("question-image-area").classList.add("card-row-full");
         }
         // Display the answer image, if there is one
         if (card.answer_image) {
             answerImage.src = card.answerimage;
             document.getElementById("answer-image-area").classList.remove("visually-hidden");
-            document.getElementById("answer-text-area").classList.remove("col-md-12");
+            document.getElementById("answer-text-area").classList.remove("card-row-full");
         } else {
             document.getElementById("answer-image-area").classList.add("visually-hidden");
-            document.getElementById("answer-text-area").classList.add("col-md-12");
+            document.getElementById("answer-text-area").classList.add("card-row-full");
         }
         // Display the answer text, if there is one
         if (card.answer) {
             document.getElementById("answer-text").textContent = card.answer;
             document.getElementById("answer-text-area").classList.remove("visually-hidden");
-            document.getElementById("answer-image-area").classList.remove("col-md-12");
+            document.getElementById("answer-image-area").classList.remove("card-row-full");
         } else {
             document.getElementById("answer-text-area").classList.add("visually-hidden");
-            document.getElementById("answer-image-area").classList.add("col-md-12");
+            document.getElementById("answer-image-area").classList.add("card-row-full");
         }
         updateButtonStates();
     }
