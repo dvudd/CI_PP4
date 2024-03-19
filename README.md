@@ -1,6 +1,5 @@
 # FlashCards
-[DEPLOYED LINK](https://ci-flashcards-0d9425f9c570.herokuapp.com)
-# Contents
+[FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is meant to help students learn using the proven method of using flash cards.
 
 ## User Stories
 
@@ -10,9 +9,11 @@
 
 ## Development
 ### Project Inception
-
+The main goal of the project was to create a easy to use and non-distracting app for students. 
+### Database ERD
+The database was planned out using [dbdiagram.io](https://dbdiagram.io), this was a huge help when creating the models.
 ### Look and feel
-One goal of the project was to create a modern, minimalistic and clutter-free aestethic which doesn't distract the user from learning.
+To get a basic layout on how the website should look I used Balsamiq Wireframes. The main goal was to create an minimal clutter-free look that doesn't distract the users from using the flash cards. To give the quiz a more appealing and "fluid" look I looked back on the JavaScript from my previous project [Dungeons and Dices](https://github.com/dvudd/CI_PP2). 
 
 ## Testing
 ### Validator Testing
@@ -139,8 +140,8 @@ $ python manage.py runserver
 - Require either an image or an text for question/answer [Stack Overflow](https://stackoverflow.com/questions/46286089/specific-way-of-requiring-one-of-two-fields-in-django-model-definition)
 - Javascript Touch events: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
 
-### Acknowledgements	
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
+### Acknowledgements
 - Thank you to my mentor Jack Wachira.\
+![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
 This is my Portfolio Project 4 as part of the Full Stack Software Developer program at [Code Institute](https://codeinstitute.net/).\
 David Eriksson 2024
