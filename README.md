@@ -13,7 +13,10 @@ The main goal of the project was to create a easy to use and non-distracting app
 ### Database ERD
 The database was planned out using [dbdiagram.io](https://dbdiagram.io), this was a huge help when creating the models.
 ### Look and feel
-To get a basic layout on how the website should look I used Balsamiq Wireframes. The main goal was to create an minimal clutter-free look that doesn't distract the users from using the flash cards. To give the quiz a more appealing and "fluid" look I looked back on the JavaScript from my previous project [Dungeons and Dices](https://github.com/dvudd/CI_PP2). 
+To get a basic layout on how the website should look I used Balsamiq Wireframes. The main goal was to create an minimal clutter-free look that doesn't distract the users from using the flash cards. To give the quiz a more appealing and "fluid" look I looked back on the JavaScript from my previous project [Dungeons and Dices](https://github.com/dvudd/CI_PP2).
+
+### Not sure what to name this section
+In order to save space on the hosting site, I have implemented a method to resize user uploaded images and converting them to .webp format.
 
 ## Testing
 ### Validator Testing
@@ -57,15 +60,17 @@ No errors were found then passing through the [CI Python Linter](https://pep8ci.
 ### Automatic Testing
 Automatic testing is done with django's built-in test module. The test's are custom-made and can be found in /card/test.py.
 Following features are tested:
-- creating subjects, decks, cards
-- edit subjects, decks, cards
-- deleting subjects, decks, cards
-- resizing images
+- Creating subjects, decks, cards
+- Edit subjects, decks, cards
+- Deleting subjects, decks, cards
+- Resizing images
 
 To run the test, run the following command:
-´´´sh
+```sh
+
 python manage.py test
-´´´
+
+```
 ## Bugs
 
 ### Known Bugs
@@ -88,6 +93,7 @@ python manage.py test
 - Bootstrap
 ## Deployment
 ### Heroku
+!note: add steps to implement cloudinary and elephantSQL.
 [Click here to go to the deployed site](https://ci-flashcards-0d9425f9c570.herokuapp.com)\
 The site was deployed to Heroku pages. The steps to deploy a site are as follows:
 1. Navigate to [Heroku](https://dashboard.heroku.com/apps)
