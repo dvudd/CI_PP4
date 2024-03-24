@@ -6,8 +6,9 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from PIL import Image
 from .models import Profile
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
-class UserTests(TestCase):
+class ModelsTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='test@example.com', password='testpass123')
         self.large_image_path = os.path.join(settings.BASE_DIR, 'cards/tests/test_images/sample-large.jpg')
@@ -59,3 +60,59 @@ class UserTests(TestCase):
             self.assertEqual(profile_img.format, 'WEBP', "Large image was not converted to WEBP format.")
             self.assertTrue(profile_img.width <= 300 and profile_img.height <= 300, "Large image was not resized correctly.")
 
+class FormsTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        self.user = User.objects.create_user(username='test@example.com', email='test@example.com', password='testpass123')
+        self.profile = Profile.objects.get(user=self.user)
+        self.large_image_path = os.path.join(settings.BASE_DIR, 'cards/tests/test_images/sample-large.jpg')
+
+    def test_user_register_form_valid(self):
+        form_data = {
+            'email': 'newuser@example.com',
+            'first_name': 'New',
+            'last_name': 'User',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+        }
+        form = UserRegisterForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_user_register_form_invalid(self):
+        form_data = {
+            'email': 'notanemail',
+            'first_name': 'Test',
+            'last_name': 'User',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+        }
+        form = UserRegisterForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('email', form.errors)
+
+    def test_user_register_form_duplicate_email(self):
+        form_data = {
+            'email': 'test@example.com',
+            'first_name': 'Test',
+            'last_name': 'User',
+            'password1': 'newpassword123',
+            'password2': 'newpassword123',
+        }
+        form = UserRegisterForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('email', form.errors)
+
+    def test_user_update_form_valid(self):
+        form_data = {
+            'email': 'updated@example.com',
+            'first_name': 'UpdatedFirstName',
+            'last_name': 'UpdatedLastName',
+        }
+        form = UserUpdateForm(data=form_data, instance=self.user)
+        self.assertTrue(form.is_valid())
+
+    def test_profile_update_form_valid(self):
+        with open(self.large_image_path, 'rb') as image_file:
+            form_data = {'image': SimpleUploadedFile(name='sample-large.jpg', content=image_file.read(), content_type='image/jpeg')}
+        form = ProfileUpdateForm(data={}, files=form_data, instance=self.profile)
+        self.assertTrue(form.is_valid())
