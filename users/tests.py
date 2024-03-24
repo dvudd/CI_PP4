@@ -116,3 +116,26 @@ class FormsTest(TestCase):
             form_data = {'image': SimpleUploadedFile(name='sample-large.jpg', content=image_file.read(), content_type='image/jpeg')}
         form = ProfileUpdateForm(data={}, files=form_data, instance=self.profile)
         self.assertTrue(form.is_valid())
+
+class AuthenticationTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        self.user = User.objects.create_user(username='test@example.com', email='test@example.com', password='testpass123')
+
+    def test_login_success(self):
+        response = self.client.post(reverse('login'), {'email': 'test@example.com', 'password': 'testpass123'})
+        self.assertRedirects(response, reverse('cards-home'))
+        self.assertTrue('_auth_user_id' in self.client.session)
+        
+    def test_login_failure(self):
+        response = self.client.post(reverse('login'), {'email': 'test@example.com', 'password': 'wrongpassword'})
+        self.assertEqual(response.status_code, 200) 
+        self.assertTrue('_auth_user_id' not in self.client.session)
+
+    def test_logout(self):
+        self.client.login(username='test@example.com', password='testpass123')
+        self.assertTrue('_auth_user_id' in self.client.session)
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'logout.html')
+        self.assertTrue('_auth_user_id' not in self.client.session)
