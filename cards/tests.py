@@ -11,8 +11,18 @@ from .forms import SubjectForm, DeckForm, CardForm
 
 
 class ModelsTest(TestCase):
+    """
+    Tests for validating the creation and functionality of Subject, Deck, and
+    Card models.
+    This class includes tests that ensure the models are correctly created and
+    associated with each other, and that image processing (resizing and format
+    conversion) is handled as expected.
+    """
     @classmethod
     def setUpTestData(cls):
+        """
+        Set up data for the test case.
+        """
         cls.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -35,15 +45,24 @@ class ModelsTest(TestCase):
         )
 
     def test_subject_creation(self):
+        """
+        Tests the creation of a Subject.
+        """
         self.assertEqual(self.subject.name, "Nostalgia")
         self.assertEqual(self.subject.creator.username, "testuser@example.com")
 
     def test_deck_creation(self):
+        """
+        Tests the creation of a Deck.
+        """
         deck = Deck.objects.get(id=1)
         self.assertEqual(deck.name, "Cartoons")
         self.assertEqual(deck.subject.name, "Nostalgia")
 
     def test_card_creation_with_question(self):
+        """
+        Tests the creation of a Card with text as question and answer.
+        """
         deck = Deck.objects.get(id=1)
         card = Card(
             question="Who lives in a pineapple under the sea?",
@@ -59,6 +78,13 @@ class ModelsTest(TestCase):
         self.assertEqual(Card.objects.count(), 1)
 
     def test_card_creation_with_images(self):
+        """
+        Tests the creation of a Card using an image as both the question
+        and the answer.
+        The question image is 1000x1000px and will be resized to 800x800px.
+        The answer image is 500x500px and will not be resized.
+        Both images will be converted to .webp
+        """
         with open(self.large_image_path, 'rb') as large_img:
             large_image = SimpleUploadedFile(
                 name='sample-large.jpg',
@@ -104,8 +130,16 @@ class ModelsTest(TestCase):
 
 
 class FormsTest(TestCase):
+    """
+    Tests for the validity of form data in the cards app.
+    This class focuses on verifying the forms used for creating
+    subjects, decks, and cards within the application.
+    """
     @classmethod
     def setUpTestData(cls):
+        """
+        Set up data for the test case.
+        """
         cls.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -120,11 +154,17 @@ class FormsTest(TestCase):
         )
 
     def test_subject_form_valid(self):
+        """
+        Test the SubjectForm with valid data.
+        """
         form_data = {'name': 'Monty Python'}
         form = SubjectForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_deck_form_valid(self):
+        """
+        Test the DeckForm with valid data.
+        """
         form_data = {
             'name': 'the Holy Grail',
             'description': 'The bridge of death'
@@ -133,6 +173,9 @@ class FormsTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_card_form_valid_with_text(self):
+        """
+        Test the CardForm with valid data.
+        """
         form_data = {
             'question': 'What is your name?',
             'answer': 'It is Arthur, King of the Britons.'
@@ -141,6 +184,9 @@ class FormsTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_card_form_valid_with_image(self):
+        """
+        Test the CardForm with valid image data.
+        """
         with open(self.large_image_path, 'rb') as large_img:
             large_image = SimpleUploadedFile(
                 name='sample-large.jpg',
@@ -168,14 +214,26 @@ class FormsTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_card_form_invalid(self):
+        """
+        Test the CardForm with invalid data.
+        """
         form_data = {}
         form = CardForm(data=form_data)
         self.assertFalse(form.is_valid())
 
 
 class HomeViewTests(TestCase):
+    """
+    Tests for the home view.
+    This class tests the behavior for authenticated and unauthenticated
+    users, ensuring that the correct template is used and that the appropriate
+    context data is provided.
+    """
     @classmethod
     def setUpTestData(cls):
+        """
+        Set up data for the test case.
+        """
         cls.user = get_user_model().objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -194,6 +252,11 @@ class HomeViewTests(TestCase):
         )
 
     def test_home_view_authenticated(self):
+        """
+        Test the home view with an authenticated user.
+        Verifies that the correct template is used and that the user's
+        subjects are correctly passed to the template.
+        """
         self.client.login(
             username='testuser@example.com',
             password='12345'
@@ -207,13 +270,25 @@ class HomeViewTests(TestCase):
         self.assertTrue(self.subject3 in user_subjects)
 
     def test_home_view_unauthenticated(self):
+        """
+        Test the home view with an unauthenticated user.
+        Checks that the correct template is used and that no user-specific
+        content is provided.
+        """
         response = self.client.get(reverse('cards-home'))
         self.assertTemplateUsed(response, 'cards/index.html')
         self.assertNotIn('user_subjects', response.context)
 
 
 class SubjectViewTests(TestCase):
+    """
+    Tests for the subject view.
+    This class tests creating, viewing, editing, and deleting subjects.
+    """
     def setUp(self):
+        """
+        Set up a user and creates a subject associated with that user.
+        """
         self.user = get_user_model().objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -228,6 +303,9 @@ class SubjectViewTests(TestCase):
         )
 
     def test_create_subject(self):
+        """
+        Test the creation of a subject.
+        """
         response = self.client.get(reverse('create_subject'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'cards/subject_create.html')
@@ -242,6 +320,9 @@ class SubjectViewTests(TestCase):
         )
 
     def test_subject_detail(self):
+        """
+        Test the display of a subject's detail view.
+        """
         response = self.client.get(reverse(
             'subject_detail',
             args=[self.subject.id])
@@ -250,6 +331,9 @@ class SubjectViewTests(TestCase):
         self.assertTemplateUsed(response, 'cards/subject_detail.html')
 
     def test_edit_subject(self):
+        """
+        Test the editing of a subject.
+        """
         response = self.client.get(reverse(
             'edit_subject',
             args=[self.subject.id])
@@ -269,6 +353,9 @@ class SubjectViewTests(TestCase):
         )
 
     def test_delete_subject(self):
+        """
+        Test the deletion of a subject.
+        """
         response = self.client.post(reverse(
             'delete_subject',
             args=[self.subject.id])
@@ -278,7 +365,15 @@ class SubjectViewTests(TestCase):
 
 
 class DeckViewTests(TestCase):
+    """
+    Tests for the deck view.
+    This class tests creating, viewing, editing, and deleting decks.
+    """
     def setUp(self):
+        """
+        Set up a user and creates a subject and a deck associated with
+        that user.
+        """
         self.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -297,6 +392,9 @@ class DeckViewTests(TestCase):
         )
 
     def test_create_deck(self):
+        """
+        Test the creation of a deck.
+        """
         response = self.client.get(reverse(
             'create_deck',
             args=[self.subject.id])
@@ -305,6 +403,9 @@ class DeckViewTests(TestCase):
         self.assertTemplateUsed(response, 'cards/deck_create.html')
 
     def test_deck_detail(self):
+        """
+        Test the display of a decks's detail view.
+        """
         response = self.client.get(reverse(
             'deck_detail',
             args=[self.deck.id])
@@ -324,11 +425,17 @@ class DeckViewTests(TestCase):
         )
 
     def test_edit_deck(self):
+        """
+        Test the editing of a deck.
+        """
         response = self.client.get(reverse('edit_deck', args=[self.deck.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'cards/deck_edit.html')
 
     def test_delete_deck(self):
+        """
+        Test the deletion of a deck.
+        """
         response = self.client.post(reverse(
             'delete_deck',
             args=[self.deck.id])
@@ -342,7 +449,15 @@ class DeckViewTests(TestCase):
 
 
 class CardViewTests(TestCase):
+    """
+    Tests for the card view.
+    This class tests creating, viewing, editing, and deleting cards.
+    """
     def setUp(self):
+        """
+        Set up a user and creates a subject, deck and a card associated
+        with that user.
+        """
         self.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -366,6 +481,9 @@ class CardViewTests(TestCase):
         )
 
     def test_create_card(self):
+        """
+        Test the creation of a card.
+        """
         response = self.client.get(reverse(
             'create_card',
             args=[self.deck.id])
@@ -374,11 +492,17 @@ class CardViewTests(TestCase):
         self.assertTemplateUsed(response, 'cards/card_create.html')
 
     def test_card_detail(self):
+        """
+        Test the display of a card's detail view.
+        """
         response = self.client.get(reverse('card_detail', args=[self.card.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'cards/card_detail.html')
 
     def test_edit_card(self):
+        """
+        Test the editing of a card.
+        """
         response = self.client.get(reverse('edit_card', args=[self.card.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'cards/card_edit.html')
@@ -396,6 +520,9 @@ class CardViewTests(TestCase):
         )
 
     def test_delete_card(self):
+        """
+        Test the deletion of a card.
+        """
         response = self.client.post(reverse(
             'delete_card',
             args=[self.card.id])
@@ -409,7 +536,15 @@ class CardViewTests(TestCase):
 
 
 class QuizViewTest(TestCase):
+    """
+    Tests for the quiz view.
+    This class tests viewing the quiz
+    """
     def setUp(self):
+        """
+        Set up a user and creates a subject, deck and a couple of cards
+        associated with that user.
+        """
         self.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
@@ -438,6 +573,9 @@ class QuizViewTest(TestCase):
         )
 
     def test_quiz_access(self):
+        """
+        Tests the access of the quiz
+        """
         response = self.client.get(reverse(
             'quiz_view',
             args=[self.deck.id])
@@ -446,6 +584,9 @@ class QuizViewTest(TestCase):
         self.assertTemplateUsed(response, 'cards/quiz.html')
 
     def test_quiz_context(self):
+        """
+        Tests that the correct cards are presented.
+        """
         response = self.client.get(reverse(
             'quiz_view',
             args=[self.deck.id])
