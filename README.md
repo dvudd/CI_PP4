@@ -12,12 +12,14 @@
 The main goal of the project was to create a easy to use and non-distracting app for students. 
 ### Database ERD
 ![Database Diagram](readme-images/database-diagram.webp)
-The database was planned out using [dbdiagram.io](https://dbdiagram.io), this was a huge help when creating the models.
+The database was planned out using [dbdiagram.io](https://dbdiagram.io).
 ### Look and feel
-To get a basic layout on how the website should look I used Balsamiq Wireframes. The main goal was to create an minimal clutter-free look that doesn't distract the users from using the flash cards. To give the quiz a more appealing and "fluid" look I looked back on the JavaScript from my previous project [Dungeons and Dices](https://github.com/dvudd/CI_PP2).
-
-### Not sure what to name this section
-In order to save space on the hosting site, I have implemented a method to automatically resize user uploaded images and converting them to .webp format.
+To get a basic layout on how the website should look I used Balsamiq Wireframes. The main goal was to create an minimal clutter-free look that doesn't distract the users from the site's main goal, to learn. To give the quiz a more appealing and "fluid" look I looked back on the JavaScript from my previous project [Dungeons and Dices](https://github.com/dvudd/CI_PP2).
+### Wireframes
+![Wireframes](readme-images/wireframes.webp)
+## Optimization
+To ensure a fast and responsive user experience, a method for handling user-uploaded images was implemented to automatically resize (800x800px for card images, 300x300 for profile pictures) and convert to the .webp format. 
+By doing this, a significant step to reduce storage space and to improve load times are taken.
 
 ## Testing
 ### Validator Testing
@@ -61,9 +63,9 @@ No errors were found then passing through the [CI Python Linter](https://pep8ci.
 ##### Desktop
 ##### Mobile
 ### Manual Testing
-
+Since most of the testing is done using automatic tests, the manual tests leaned more on user experience.
 ### Automatic Testing
-Automatic testing is done with django's built-in test module.
+Automatic testing is done using Django's built-in test module.
 There are 37 tests made.
 Users:
 - Models:
