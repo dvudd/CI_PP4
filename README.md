@@ -20,7 +20,6 @@ To get a basic layout on how the website should look I used Balsamiq Wireframes.
 ## Optimization
 To ensure a fast and responsive user experience, a method for handling user-uploaded images was implemented to automatically resize (800x800px for card images, 300x300 for profile pictures) and convert to the .webp format. 
 By doing this, a significant step to reduce storage space and to improve load times are taken.
-
 ## Testing
 ### Validator Testing
 #### HTML
@@ -61,7 +60,19 @@ No errors were found then passing through the [CI Python Linter](https://pep8ci.
 
 #### Google Chrome Lighthouse Reports
 ##### Desktop
+<details><summary>Results</summary>
+
+![Lighthouse Desktop Results](readme-images/lighthouse-desktop.webp)
+
+</details>
+
 ##### Mobile
+<details><summary>Results</summary>
+
+![Lighthouse Mobile Results](readme-images/lighthouse-mobile.webp)
+
+</details>
+
 ### Manual Testing
 Since most of the testing is done using automatic tests, the manual tests leaned more on user experience.
 ### Automatic Testing
@@ -107,6 +118,7 @@ Users:
     - Card Deletion
     - Quiz access
     - Quiz context
+    
 To run the tests, run the following command:
 ```sh
 
@@ -124,7 +136,6 @@ python manage.py test
 - Database hosting: ElephantSQL
 - Image hosting: Cloudinary
 - Favicon generator: [favicon.io](https://favicon.io/favicon-converter/)
-
 ### Languages
 - HTML5
 - CSS
@@ -150,7 +161,6 @@ The site was deployed to Heroku pages. The steps to deploy a site are as follows
 10. Find the desired repository, for this project I used "CI_PP4", and click "Connect"
 11. Click on either "Enable Automatic Deploys" or "Deploy Branch"
 12. Once the project has been deployed, scroll up and click on "Open app"
-
 ### Forking the GitHub Repository
 By forking the GitHub Repository, we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps:
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/dvudd/CI_PP4)
@@ -187,7 +197,6 @@ $ python manage.py runserver
 - Get full path [Django Docs](https://docs.djangoproject.com/en/5.0/ref/request-response/#django.http.HttpRequest.get_full_path)
 - Require either an image or an text for question/answer [Stack Overflow](https://stackoverflow.com/questions/46286089/specific-way-of-requiring-one-of-two-fields-in-django-model-definition)
 - Javascript Touch events: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
-
 ### Acknowledgements
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
