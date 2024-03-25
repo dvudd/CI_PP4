@@ -41,7 +41,11 @@ No errors were found when passing through the [W3C CSS Validator](https://jigsaw
 No errors were found when passing through the [JShint](https://jshint.com) analysis tool using `esversion: 8`.
 <details><summary>Results</summary>
 
-![JavaScript Validator Results](readme-images/validator-js.webp)
+script.js
+![JavaScript Validator Results](readme-images/validator-js-script.webp)
+
+quiz.js
+![JavaScript Validator Results](readme-images/validator-js-quiz.webp)
 
 </details>
 
