@@ -7,6 +7,7 @@ from PIL import Image
 from io import BytesIO
 import os
 
+
 # Create your models here.
 class Subject(models.Model):
     name = models.CharField(max_length=100)
@@ -15,7 +16,8 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Deck(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -25,22 +27,39 @@ class Deck(models.Model):
     def __str__(self):
         return self.name
 
+
 def card_img(instance, filename):
-    return 'user_{0}/{1}'.format(instance.deck.subject.creator.username, filename)
+    return 'user_{0}/{1}'.format(
+        instance.deck.subject.creator.username,
+        filename
+    )
+
 
 class Card(models.Model):
     question = models.TextField(blank=True)
-    question_image = models.ImageField(upload_to=card_img, blank=True, null=True)
+    question_image = models.ImageField(
+        upload_to=card_img,
+        blank=True,
+        null=True
+    )
     answer = models.TextField(blank=True)
-    answer_image = models.ImageField(upload_to=card_img, blank=True, null=True)
+    answer_image = models.ImageField(
+        upload_to=card_img,
+        blank=True,
+        null=True
+    )
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
     def clean(self):
         if not self.question and not self.question_image:
-            raise ValidationError('You must provide either a question or an image.')
+            raise ValidationError(
+                'You must provide either a question or an image.'
+            )
         if not self.answer and not self.answer_image:
-            raise ValidationError('You must provide either a answer or an image.')
+            raise ValidationError(
+                'You must provide either a answer or an image.'
+            )
 
     def save(self, *args, **kwargs):
         self.clean()
@@ -55,16 +74,20 @@ class Card(models.Model):
         super().save(*args, **kwargs)
 
     def process_image(self, image_field):
-            MAX_SIZE = (800, 800)
-            with Image.open(image_field) as img:
-                # Resize the image if it's bigger than 300px
-                img.thumbnail(MAX_SIZE)
+        MAX_SIZE = (800, 800)
+        with Image.open(image_field) as img:
+            # Resize the image if it's bigger than 300px
+            img.thumbnail(MAX_SIZE)
 
-                # Create a BytesIO object to save the image
-                in_mem_file = BytesIO()
-                img.save(in_mem_file, format='WEBP')
-                in_mem_file.seek(0)
+            # Create a BytesIO object to save the image
+            in_mem_file = BytesIO()
+            img.save(in_mem_file, format='WEBP')
+            in_mem_file.seek(0)
 
-                # Change the file extension to .webp
-                filename = os.path.basename(image_field.name)
-                image_field.save(filename, ContentFile(in_mem_file.read()), save=False)
+            # Change the file extension to .webp
+            filename = os.path.basename(image_field.name)
+            image_field.save(
+                filename,
+                ContentFile(in_mem_file.read()),
+                save=False
+            )
