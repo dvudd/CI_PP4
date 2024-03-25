@@ -71,26 +71,23 @@ Users:
     - User Registration
     - User Login
     - Profile updating
+    - Subject Creation
+    - Deck Creation
+    - Card Creation with text question/answer
+    - Card Creation with image question/answer
 - Forms:
     - User Registration with valid data
     - User Registration with invalid data
     - User Registration with an existing email
     - User Updating
     - Profile Updating
-- Authentication:
-    - User Login with valid credentials
-    - User Login with invalid credentials
-    - User Logout
-Cards:
-- Models:
-    - Subject Creation
-    - Deck Creation
-    - Card Creation with text question/answer
-    - Card Creation with image question/answer
-- Forms:
     - Subject Creation
     - Deck Creation
     - Card Creation
+- Authentication:
+    - User Login with valid credentials
+    - User Login with invalid credentials
+    - User Logout  
 - Views:
     - Home view for authenticated users
     - Home view for non-authenticated users
