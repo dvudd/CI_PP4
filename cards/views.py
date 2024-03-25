@@ -301,6 +301,10 @@ def delete_card(request, card_id):
 # Quiz view
 @login_required
 def quiz_view(request, deck_id):
+    """
+    Renders the quiz page with a set of cards from a specified deck.
+    Ensures that all necessary content is available for front-end parsing.
+    """
     deck = get_object_or_404(Deck, pk=deck_id, subject__creator=request.user)
     cards = deck.card_set.all()
     data = []
