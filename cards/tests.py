@@ -120,3 +120,37 @@ class HomeViewTests(TestCase):
         response = self.client.get(reverse('cards-home'))
         self.assertTemplateUsed(response, 'cards/index.html')
         self.assertNotIn('user_subjects', response.context)
+
+class SubjectViewTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(username='testuser@example.com', password='12345')
+        self.client.login(username='testuser@example.com', password='12345')
+        self.subject = Subject.objects.create(name="Test Subject", creator=self.user)
+
+    def test_create_subject(self):
+        response = self.client.get(reverse('create_subject'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/subject_create.html')
+        
+        response = self.client.post(reverse('create_subject'), {'name': 'New Subject'})
+        self.assertEqual(Subject.objects.count(), 2) 
+        self.assertRedirects(response, reverse('subject_detail', args=[Subject.objects.latest('id').id]))
+    
+    def test_subject_detail(self):
+        response = self.client.get(reverse('subject_detail', args=[self.subject.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/subject_detail.html')
+
+    def test_edit_subject(self):
+        response = self.client.get(reverse('edit_subject', args=[self.subject.id]))
+        self.assertEqual(response.status_code, 200)
+        
+        response = self.client.post(reverse('edit_subject', args=[self.subject.id]), {'name': 'Updated Subject'})
+        self.subject.refresh_from_db()
+        self.assertEqual(self.subject.name, 'Updated Subject')
+        self.assertRedirects(response, reverse('subject_detail', args=[self.subject.id]))
+
+    def test_delete_subject(self):
+        response = self.client.post(reverse('delete_subject', args=[self.subject.id]))
+        self.assertEqual(Subject.objects.count(), 0)
+        self.assertRedirects(response, reverse('cards-home'))
