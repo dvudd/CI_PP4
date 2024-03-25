@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 import os
 
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -26,7 +27,11 @@ class Profile(models.Model):
             in_mem_file.seek(0)
 
             filename = os.path.basename(self.image.name)
-            self.image.save(filename, ContentFile(in_mem_file.read()), save=False)
+            self.image.save(
+                filename,
+                ContentFile(in_mem_file.read()),
+                save=False
+            )
 
             in_mem_file.close()
 

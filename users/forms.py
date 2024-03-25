@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
+
 # Register Form
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -23,7 +24,7 @@ class UserRegisterForm(UserCreationForm):
         if User.objects.filter(username=email).exists():
             login_url = reverse('login')
             message = format_html(
-                "An account with this email already exists. Do you want to <a href='{}'>log in</a>?",
+                "An account with this email already exists!",
                 login_url
             )
             raise forms.ValidationError(message)
@@ -39,7 +40,8 @@ class UserRegisterForm(UserCreationForm):
             user.save()
         return user
 
-#Login Form
+
+# Login Form
 class LoginForm(forms.Form):
     email = forms.EmailField(required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
@@ -55,6 +57,7 @@ class LoginForm(forms.Form):
             if user is None:
                 raise forms.ValidationError("Invalid email or password")
         return cleaned_data
+
 
 # Profile Form
 class UserUpdateForm(forms.ModelForm):
@@ -72,6 +75,7 @@ class UserUpdateForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
 
 # Profile picture Form
 class ProfileUpdateForm(forms.ModelForm):
