@@ -3,7 +3,9 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth import get_user_model
 from PIL import Image
+from django.urls import reverse
 from .models import Subject, Deck, Card
 from .forms import SubjectForm, DeckForm, CardForm
 
@@ -95,3 +97,26 @@ class FormsTest(TestCase):
         form_data = {}
         form = CardForm(data=form_data)
         self.assertFalse(form.is_valid())
+
+class HomeViewTests(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        self.user = get_user_model().objects.create_user(username='testuser@example.com', password='12345')
+        self.subject1 = Subject.objects.create(name="Test Subject 1", creator=self.user)
+        self.subject2 = Subject.objects.create(name="Test Subject 2", creator=self.user)
+        self.subject3 = Subject.objects.create(name="Test Subject 3", creator=self.user)
+
+    def test_home_view_authenticated(self):
+        self.client.login(username='testuser@example.com', password='12345')
+        response = self.client.get(reverse('cards-home'))
+        self.assertTemplateUsed(response, 'cards/home.html')
+        self.assertIn('user_subjects', response.context)
+        user_subjects = response.context['user_subjects']
+        self.assertTrue(self.subject1 in user_subjects)
+        self.assertTrue(self.subject2 in user_subjects)
+        self.assertTrue(self.subject3 in user_subjects)
+
+    def test_home_view_unauthenticated(self):
+        response = self.client.get(reverse('cards-home'))
+        self.assertTemplateUsed(response, 'cards/index.html')
+        self.assertNotIn('user_subjects', response.context)
