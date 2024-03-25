@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Select att delete buttons
+  // Select all delete buttons
   const deleteButtons = document.querySelectorAll('[data-delete-url]');
   
   // Attach a event listener to each button
