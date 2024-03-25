@@ -221,3 +221,24 @@ class CardViewTests(TestCase):
         self.assertRedirects(response, reverse('deck_detail', args=[self.deck.id]))
         with self.assertRaises(Card.DoesNotExist):
             Card.objects.get(id=self.card.id)
+
+class QuizViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser@example.com', password='12345')
+        self.subject = Subject.objects.create(name="Test Subject", creator=self.user)
+        self.deck = Deck.objects.create(name="Test Deck", subject=self.subject)
+        self.card1 = Card.objects.create(question="Test Question 1", answer="Test Answer 1", deck=self.deck)
+        self.card2 = Card.objects.create(question="Test Question 2", answer="Test Answer 2", deck=self.deck)
+        self.client.login(username='testuser@example.com', password='12345')
+
+    def test_quiz_access(self):
+        response = self.client.get(reverse('quiz_view', args=[self.deck.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/quiz.html')
+
+    def test_quiz_context(self):
+        response = self.client.get(reverse('quiz_view', args=[self.deck.id]))
+        self.assertIn('deck', response.context)
+        self.assertIn('cards', response.context)
+        self.assertEqual(len(response.context['cards']), 2)
+        self.assertEqual(response.context['deck'], self.deck)
