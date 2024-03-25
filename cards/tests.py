@@ -154,3 +154,35 @@ class SubjectViewTests(TestCase):
         response = self.client.post(reverse('delete_subject', args=[self.subject.id]))
         self.assertEqual(Subject.objects.count(), 0)
         self.assertRedirects(response, reverse('cards-home'))
+
+class DeckViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser@example.com', password='12345')
+        self.subject = Subject.objects.create(name="Test Subject", creator=self.user)
+        self.deck = Deck.objects.create(name="Test Deck", subject=self.subject)
+        self.client.login(username='testuser@example.com', password='12345')
+
+    def test_create_deck(self):
+        response = self.client.get(reverse('create_deck', args=[self.subject.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/deck_create.html')
+
+    def test_deck_detail(self):
+        response = self.client.get(reverse('deck_detail', args=[self.deck.id]))
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(reverse('edit_deck', args=[self.deck.id]), {'name': 'Updated Deck'})
+        self.deck.refresh_from_db()
+        self.assertEqual(self.deck.name, 'Updated Deck')
+        self.assertRedirects(response, reverse('deck_detail', args=[self.deck.id]))
+
+    def test_edit_deck(self):
+        response = self.client.get(reverse('edit_deck', args=[self.deck.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/deck_edit.html')
+
+    def test_delete_deck(self):
+        response = self.client.post(reverse('delete_deck', args=[self.deck.id]))
+        self.assertRedirects(response, reverse('subject_detail', args=[self.subject.id]))
+        with self.assertRaises(Deck.DoesNotExist):
+            Deck.objects.get(id=self.deck.id)
