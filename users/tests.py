@@ -10,7 +10,13 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
 class ModelsTest(TestCase):
+    """
+    Tests the user model and profile model functionality.
+    """
     def setUp(self):
+        """
+        Set up a user and specifies the path to a large image.
+        """
         self.user = User.objects.create_user(
             username='test@example.com',
             password='testpass123'
@@ -21,10 +27,16 @@ class ModelsTest(TestCase):
         )
 
     def test_profile_creation(self):
+        """
+        Tests that a profile is automatically created for a new user
+        """
         user_profile = self.user.profile
         self.assertIsNotNone(user_profile)
 
     def test_register_user(self):
+        """
+        Tests that a new user can be registered.
+        """
         response = self.client.post(reverse('register'), data={
             'email': 'newuser@example.com',
             'first_name': 'First',
@@ -41,11 +53,20 @@ class ModelsTest(TestCase):
         )
 
     def test_login_user(self):
+        """
+        Tests that a user can login
+        """
         self.client.login(username='test@example.com', password='testpass123')
         response = self.client.get(reverse('cards-home'))
         self.assertEqual(str(response.context['user']), 'test@example.com')
 
     def test_update_profile(self):
+        """
+        Tests the funcionality of updating user profile.
+        Including changing user details and uploading a profile image.
+        The image used is 1000x1000px and should be resized to 300x300px
+        The image should also be converted to .webp
+        """
         self.client.login(username='test@example.com', password='testpass123')
         with open(self.large_image_path, 'rb') as large_img:
             large_image = SimpleUploadedFile(
@@ -81,8 +102,16 @@ class ModelsTest(TestCase):
 
 
 class FormsTest(TestCase):
+    """
+    Tests for the validity of form data in the users app.
+    This class focuses on verifying the forms used for user creation and
+    profile updating.
+    """
     @classmethod
     def setUpTestData(cls):
+        """
+        Set up data for the test case.
+        """
         cls.user = User.objects.create_user(
             username='test@example.com',
             email='test@example.com',
@@ -95,6 +124,9 @@ class FormsTest(TestCase):
         )
 
     def test_user_register_form_valid(self):
+        """
+        Test the user registration with valid data
+        """
         form_data = {
             'email': 'newuser@example.com',
             'first_name': 'New',
@@ -106,6 +138,9 @@ class FormsTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_user_register_form_invalid(self):
+        """
+        Test the user registration with invalid data
+        """
         form_data = {
             'email': 'notanemail',
             'first_name': 'Test',
@@ -118,6 +153,9 @@ class FormsTest(TestCase):
         self.assertIn('email', form.errors)
 
     def test_user_register_form_duplicate_email(self):
+        """
+        Test the user registration with an existing email
+        """
         form_data = {
             'email': 'test@example.com',
             'first_name': 'Test',
@@ -130,6 +168,9 @@ class FormsTest(TestCase):
         self.assertIn('email', form.errors)
 
     def test_user_update_form_valid(self):
+        """
+        Test the user update form with valid data
+        """
         form_data = {
             'email': 'updated@example.com',
             'first_name': 'UpdatedFirstName',
@@ -139,6 +180,9 @@ class FormsTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_profile_update_form_valid(self):
+        """
+        Test the profile update with valid data
+        """
         with open(self.large_image_path, 'rb') as image_file:
             form_data = {'image': SimpleUploadedFile(
                 name='sample-large.jpg',
@@ -154,8 +198,16 @@ class FormsTest(TestCase):
 
 
 class AuthenticationTest(TestCase):
+    """
+    Tests for the user authentication.
+    This class focusing on the functionality and reliability of the
+    login and logout processes.
+    """
     @classmethod
     def setUpTestData(cls):
+        """
+        Set up data for the test case.
+        """
         cls.user = User.objects.create_user(
             username='test@example.com',
             email='test@example.com',
@@ -163,6 +215,9 @@ class AuthenticationTest(TestCase):
         )
 
     def test_login_success(self):
+        """
+        Tests so the user can log in.
+        """
         response = self.client.post(
             reverse('login'),
             {'email': 'test@example.com', 'password': 'testpass123'}
@@ -171,6 +226,9 @@ class AuthenticationTest(TestCase):
         self.assertTrue('_auth_user_id' in self.client.session)
 
     def test_login_failure(self):
+        """
+        Tests so the user cannot log in with the wrong credentials.
+        """
         response = self.client.post(
             reverse('login'),
             {'email': 'test@example.com', 'password': 'wrongpassword'}
@@ -179,6 +237,9 @@ class AuthenticationTest(TestCase):
         self.assertTrue('_auth_user_id' not in self.client.session)
 
     def test_logout(self):
+        """
+        Tests so the user can log out.
+        """
         self.client.login(username='test@example.com', password='testpass123')
         self.assertTrue('_auth_user_id' in self.client.session)
         response = self.client.get(reverse('logout'))
