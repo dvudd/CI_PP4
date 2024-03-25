@@ -16,7 +16,7 @@
                 <a href="{% url 'subject_detail' subject_id=subject.id %}" class="list-group-item-action">{{ subject.name }}</a>
                 <div class="btn-group" role="group">
                     <a href="{% url 'edit_subject' subject_id=subject.id %}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
-                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteUrl('{% url 'delete_subject' subject_id=subject.id %}');"><i class="bi bi-trash"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-delete-url="{% url 'delete_subject' subject_id=subject.id %}"><i class="bi bi-trash"></i></a>
                 </div>
             </li>
             {% empty %}
