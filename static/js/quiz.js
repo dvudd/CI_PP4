@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Swap elements at indices i and j
           [array[i], array[j]] = [array[j], array[i]];
         }
-      };
+      }
      shuffle(cardsData);
 
     let currentCardIndex = 0;
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // If the swipe distance is less than the minimum, don't do anything
         if (Math.abs(distance) < minimumDistance) {
             return;
-        };
+        }
 
         if (distance < 0) {
             // Swipe Left - Show Next Question
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (distance > 0) {
             // Swipe Right - Show Previous Question
             document.getElementById('prev-question-btn').click();
-        };
-    };
+        }
+    }
 
     questionArea.addEventListener('touchstart', e => {
         touchStart = e.changedTouches[0].screenX;
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-    };
+    }
 
     // Event listener for next question button
     document.getElementById('next-question-btn').addEventListener('click', async function() {
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 await sleep(500);
                 document.getElementById('quiz-card').classList.remove('fade-in-left');
             }
-        };
+        }
     });
 
     // Event listener for previous question button
