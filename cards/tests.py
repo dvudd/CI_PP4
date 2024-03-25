@@ -186,3 +186,38 @@ class DeckViewTests(TestCase):
         self.assertRedirects(response, reverse('subject_detail', args=[self.subject.id]))
         with self.assertRaises(Deck.DoesNotExist):
             Deck.objects.get(id=self.deck.id)
+
+class CardViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser@example.com', password='12345')
+        self.subject = Subject.objects.create(name="Test Subject", creator=self.user)
+        self.deck = Deck.objects.create(name="Test Deck", subject=self.subject)
+        self.card = Card.objects.create(question="Test Question", answer="Test Answer", deck=self.deck)
+        self.client.login(username='testuser@example.com', password='12345')
+
+    def test_create_card(self):
+        response = self.client.get(reverse('create_card', args=[self.deck.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/card_create.html')
+
+    def test_card_detail(self):
+        response = self.client.get(reverse('card_detail', args=[self.card.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/card_detail.html')
+
+    def test_edit_card(self):
+        response = self.client.get(reverse('edit_card', args=[self.card.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cards/card_edit.html')
+        
+        post_response = self.client.post(reverse('edit_card', args=[self.card.id]), {'question': 'Updated Question', 'answer': 'Updated Answer'})
+        self.card.refresh_from_db()
+        self.assertEqual(self.card.question, 'Updated Question')
+        self.assertEqual(self.card.answer, 'Updated Answer')
+        self.assertRedirects(post_response, reverse('card_detail', args=[self.card.id]))
+
+    def test_delete_card(self):
+        response = self.client.post(reverse('delete_card', args=[self.card.id]))
+        self.assertRedirects(response, reverse('deck_detail', args=[self.deck.id]))
+        with self.assertRaises(Card.DoesNotExist):
+            Card.objects.get(id=self.card.id)
