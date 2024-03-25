@@ -9,7 +9,7 @@ import os
 class Profile(models.Model):
     """
     Extends the default Django User model to include a profile image.
-    
+
     Attributes:
         user (User): The user associated with this profile.
         image (ImageField): The profile image for the user.
@@ -25,8 +25,8 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Override the save method to resize the uploaded profile image to a 
-        maximum dimension of 300x300px before saving it and converting it to 
+        Override the save method to resize the uploaded profile image to a
+        maximum dimension of 300x300px before saving it and converting it to
         webp format.
         """
         img = Image.open(self.image)
