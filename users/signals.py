@@ -6,10 +6,16 @@ from .models import Profile
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    """
+    Signal to automatically create a Profile when a new User is created.
+    """
     if created:
         Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
+    """
+    Signal to automatically save the associated Profile when a User is saved.
+    """
     instance.profile.save()

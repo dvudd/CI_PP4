@@ -8,8 +8,11 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 
-# Register Form
 class UserRegisterForm(UserCreationForm):
+    """
+    A form for creating new users. Includes all the required
+    fields, plus a repeated password.
+    """
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
@@ -18,8 +21,10 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
 
-    # Check if the user already exists, if so give an error message
     def clean_email(self):
+        """
+        Ensure the email is unique across the User model.
+        """
         email = self.cleaned_data['email'].lower()
         if User.objects.filter(username=email).exists():
             login_url = reverse('login')
@@ -31,6 +36,9 @@ class UserRegisterForm(UserCreationForm):
         return email
 
     def save(self, commit=True):
+        """
+        Save the provided password in hashed format.
+        """
         user = super().save(commit=False)
         user.username = self.cleaned_data['email']
         user.email = self.cleaned_data['email']
@@ -41,8 +49,10 @@ class UserRegisterForm(UserCreationForm):
         return user
 
 
-# Login Form
 class LoginForm(forms.Form):
+    """
+    A form for logging in users. It requires an email and password.
+    """
     email = forms.EmailField(required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
 
@@ -59,8 +69,10 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
-# Profile Form
 class UserUpdateForm(forms.ModelForm):
+    """
+    A form for updating user details. Allows changing the email and names.
+    """
     email = forms.EmailField()
 
     class Meta:
@@ -77,8 +89,10 @@ class UserUpdateForm(forms.ModelForm):
         return user
 
 
-# Profile picture Form
 class ProfileUpdateForm(forms.ModelForm):
+    """
+    A form for updating the user's profile picture.
+    """
     class Meta:
         model = Profile
         fields = ['image']

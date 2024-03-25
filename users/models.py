@@ -6,15 +6,29 @@ from io import BytesIO
 import os
 
 
-# Create your models here.
 class Profile(models.Model):
+    """
+    Extends the default Django User model to include a profile image.
+    
+    Attributes:
+        user (User): The user associated with this profile.
+        image (ImageField): The profile image for the user.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
+        """
+        Return a string representation of the user profile.
+        """
         return f'{self.user.username} Profile'
 
     def save(self, *args, **kwargs):
+        """
+        Override the save method to resize the uploaded profile image to a 
+        maximum dimension of 300x300px before saving it and converting it to 
+        webp format.
+        """
         img = Image.open(self.image)
 
         # Resize the image if it's bigger than 300px

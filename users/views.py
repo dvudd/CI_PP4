@@ -10,8 +10,12 @@ from .forms import (
 )
 
 
-# Register view
 def register(request):
+    """
+    Handles user registration.
+
+    Renders a form for user registration and processes the form submission.
+    """
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -27,8 +31,12 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 
-# Login view
 def user_login(request):
+    """
+    Handles user login.
+
+    Renders a login form and processes the form submission.
+    """
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -47,9 +55,13 @@ def user_login(request):
     return render(request, 'login.html', {'form': form})
 
 
-# Profile view
 @login_required
 def profile(request):
+    """
+    Handles user profile.
+
+    Renders and processes the user profile form.
+    """
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(
