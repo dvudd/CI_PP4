@@ -75,50 +75,55 @@ No errors were found then passing through the [CI Python Linter](https://pep8ci.
 
 ### Manual Testing
 Since most of the testing is done using automatic tests, the manual tests leaned more on user experience.
+| Test Cae | Description | Outcome |
+| --------- | ----------- | ------ |
+| UX | Site is fully responsive | PASS |
+| UX | The correct default profile image is presented | PASS |
+| UX | The correct custom profile image is presented | PASS |
+| UX | The correct card images is presented | PASS |
+
 ### Automatic Testing
 Automatic testing is done using Django's built-in test module.
 There are 37 tests made.
-Users:
-- Models:
-    - Profile creation
-    - User Registration
-    - User Login
-    - Profile updating
-    - Subject Creation
-    - Deck Creation
-    - Card Creation with text question/answer
-    - Card Creation with image question/answer
-- Forms:
-    - User Registration with valid data
-    - User Registration with invalid data
-    - User Registration with an existing email
-    - User Updating
-    - Profile Updating
-    - Subject Creation
-    - Deck Creation
-    - Card Creation
-- Authentication:
-    - User Login with valid credentials
-    - User Login with invalid credentials
-    - User Logout  
-- Views:
-    - Home view for authenticated users
-    - Home view for non-authenticated users
-    - Subject Creation
-    - Subject Details
-    - Subject Editing
-    - Subject Deletion
-    - Deck Creation
-    - Deck Details
-    - Deck Editing
-    - Deck Deletion
-    - Card Creation
-    - Card Details
-    - Card Editing
-    - Card Deletion
-    - Quiz access
-    - Quiz context
-
+| Test Case                                            | Description                                                  | Outcome |
+|------------------------------------------------------|--------------------------------------------------------------|---------|
+| test_card_submission (cards.tests.CardViewTests)     | Test the submission of a new card.                           | ok      |
+| test_create_card (cards.tests.CardViewTests)         | Test the creation of a card.                                 | ok      |
+| test_delete_card (cards.tests.CardViewTests)         | Test the deletion of a card.                                 | ok      |
+| test_edit_card (cards.tests.CardViewTests)           | Test the editing of a card.                                  | ok      |
+| test_create_deck (cards.tests.DeckViewTests)         | Test the creation of a deck.                                 | ok      |
+| test_deck_detail (cards.tests.DeckViewTests)         | Test the display of a decks's detail view.                   | ok      |
+| test_delete_deck (cards.tests.DeckViewTests)         | Test the deletion of a deck.                                 | ok      |
+| test_edit_deck (cards.tests.DeckViewTests)           | Test the editing of a deck.                                  | ok      |
+| test_card_form_invalid (cards.tests.FormsTest)       | Test the CardForm with invalid data.                         | ok      |
+| test_card_form_valid_with_image (cards.tests.FormsTest) | Test the CardForm with valid image data.                    | ok      |
+| test_card_form_valid_with_text (cards.tests.FormsTest) | Test the CardForm with valid data.                          | ok      |
+| test_deck_form_valid (cards.tests.FormsTest)         | Test the DeckForm with valid data.                           | ok      |
+| test_subject_form_valid (cards.tests.FormsTest)      | Test the SubjectForm with valid data.                        | ok      |
+| test_home_view_authenticated (cards.tests.HomeViewTests) | Test the home view with an authenticated user.             | ok      |
+| test_home_view_unauthenticated (cards.tests.HomeViewTests) | Test the home view with an unauthenticated user.           | ok      |
+| test_card_creation_with_images (cards.tests.ModelsTest) | Tests the creation of a Card using an image as both the question and answer. | ok |
+| test_card_creation_with_question (cards.tests.ModelsTest) | Tests the creation of a Card with text as question and answer. | ok |
+| test_deck_creation (cards.tests.ModelsTest)          | Tests the creation of a Deck.                                | ok      |
+| test_subject_creation (cards.tests.ModelsTest)       | Tests the creation of a Subject.                             | ok      |
+| test_quiz_access (cards.tests.QuizViewTest)          | Tests the access of the quiz.                                | ok      |
+| test_quiz_context (cards.tests.QuizViewTest)         | Tests that the correct cards are presented.                  | ok      |
+| test_create_subject (cards.tests.SubjectViewTests)   | Test the creation of a subject.                              | ok      |
+| test_delete_subject (cards.tests.SubjectViewTests)   | Test the deletion of a subject.                              | ok      |
+| test_edit_subject (cards.tests.SubjectViewTests)     | Test the editing of a subject.                               | ok      |
+| test_subject_detail (cards.tests.SubjectViewTests)   | Test the display of a subject's detail view.                 | ok      |
+| test_login_failure (users.tests.AuthenticationTest)  | Tests so the user cannot log in with the wrong credentials.  | ok      |
+| test_login_success (users.tests.AuthenticationTest)  | Tests so the user can log in.                                | ok      |
+| test_logout (users.tests.AuthenticationTest)         | Tests so the user can log out.                               | ok      |
+| test_profile_update_form_valid (users.tests.FormsTest) | Test the profile update with valid data.                   | ok      |
+| test_user_register_form_duplicate_email (users.tests.FormsTest) | Test the user registration with an existing email.       | ok      |
+| test_user_register_form_invalid (users.tests.FormsTest) | Test the user registration with invalid data.             | ok      |
+| test_user_register_form_valid (users.tests.FormsTest) | Test the user registration with valid data.                 | ok      |
+| test_user_update_form_valid (users.tests.FormsTest)   | Test the user update form with valid data.                   | ok      |
+| test_login_user (users.tests.ModelsTest)              | Tests that a user can login.                                 | ok      |
+| test_profile_creation (users.tests.ModelsTest)        | Tests that a profile is automatically created for a new user.| ok      |
+| test_register_user (users.tests.ModelsTest)           | Tests that a new user can be registered.                     | ok      |
+| test_update_profile (users.tests.ModelsTest)          | Tests the functionality of updating user profile.            | ok      |
 To run the tests, run the following command:
 ```sh
 
