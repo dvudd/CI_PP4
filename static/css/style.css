@@ -75,6 +75,18 @@ body {
   transform: rotateY(180deg);
 }
 
+.invert-colors {
+  filter: invert(100%);
+}
+
+.carousel-control-next {
+  right: -5rem;
+}
+
+.carousel-control-prev {
+  left: -5rem;
+}
+
 /* Animations */
 /* Card flip animation */
 .flip {
@@ -91,7 +103,7 @@ body {
     transform: translateX(0);
   }
   to {
-    opacity: 0.5;
+    opacity: 0.1;
     transform: translateX(-50%);
   }
 }
@@ -102,7 +114,7 @@ body {
 }
 @keyframes FadeInLeft {
   from {
-    opacity: 0.5;
+    opacity: 0.1;
     transform: translateX(50%);
   }
   to {
@@ -121,7 +133,7 @@ body {
     transform: translateX(0);
   }
   to {
-    opacity: 0.5;
+    opacity: 0.1;
     transform: translateX(50%);
   }
 }
@@ -132,7 +144,7 @@ body {
 }
 @keyframes FadeInRight {
   from {
-    opacity: 0.5;
+    opacity: 0.1;
     transform: translateX(-50%);
   }
   to {

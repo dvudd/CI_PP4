@@ -6,39 +6,40 @@
         <div class="row">
             <div class="col-4">
                 <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary"><i class="bi bi-arrow-left-square-fill"></i> {{ deck.name }}</a>
-            </div>
-
+            </div>  
         </div>
-        <!-- Card Navigation -->
-        <div class="row">
-            <div class="col align-items-start">
-                <button id="prev-question-btn" class="btn btn-lg"><i class="bi bi-arrow-left-square-fill"></i></button>
-            </div>
-            <div class="col align-items-end text-end">
-                <button id="next-question-btn" class="btn btn-lg"><i class="bi bi-arrow-right-square-fill"></i></button>
-            </div>
+        <div class="carousel slide p-3">
+            <!-- Card Navigation -->
+            <button id="prev-question-btn" class="carousel-control-prev invert-colors" type="button">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <button id="next-question-btn" class="carousel-control-next invert-colors" type="button">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button> 
+            <section id="quiz-card" class="card bg-secondary-subtle text-center" style="height: 32rem;">    
+                <!-- Question Area -->
+                <div class="card-front row g-0 align-items-center">
+                    <div id="question-image-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
+                        <img id="question-image" class="img-thumbnail">
+                    </div>
+                    <div id="question-text-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
+                        <p id="question-text" class="card-text"></p>
+                    </div>
+                </div>
+                <!-- Answer Area -->
+                <div class="card-back row align-items-center">
+                    <div id="answer-image-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
+                        <img id="answer-image" class="img-thumbnail">
+                    </div>
+                    <div id="answer-text-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
+                        <p id="answer-text" class="card-text"></p>
+                    </div>
+                </div>
+            </section>
         </div>
-        <!-- Quiz Area -->
-        <section id="quiz-card" class="card bg-secondary-subtle text-center" style="height: 32rem;">
-            <!-- Question Area -->
-            <div class="card-front row g-0 align-items-center">
-                <div id="question-image-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
-                    <img id="question-image" class="img-thumbnail">
-                </div>
-                <div id="question-text-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
-                    <p id="question-text" class="card-text"></p>
-                </div>
-            </div>
-            <!-- Answer Area -->
-            <div class="card-back row align-items-center">
-                <div id="answer-image-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
-                    <img id="answer-image" class="img-thumbnail">
-                </div>
-                <div id="answer-text-area" class="col-12 card-row-half d-flex align-items-center justify-content-center">
-                    <p id="answer-text" class="card-text"></p>
-                </div>
-            </div>
-        </section>
+    </div>
 {% endblock content %}
 
 {% block extra_js %}
