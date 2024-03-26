@@ -152,3 +152,13 @@ body {
     transform: translateX(0);
   }
 }
+
+/* Media query: smaller phones */
+@media screen and (max-width: 576px) {
+  .carousel-control-next {
+    visibility: hidden;
+  }
+  .carousel-control-prev {
+    visibility: hidden;
+  }
+}
