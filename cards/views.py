@@ -220,7 +220,7 @@ def create_card(request, deck_id):
             card = form.save(commit=False)
             card.deck = deck
             card.save()
-            return redirect('card_detail', card_id=card.id)
+            return redirect('deck_detail', deck_id=deck.id)
     else:
         form = CardForm()
     return render(

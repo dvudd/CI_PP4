@@ -11,35 +11,50 @@
         <form method="post">
             {% csrf_token %}
             {{ form | crispy }}
-            <div class="text-end"></div>
+            <div class="text-end">
                 <button type="submit" class="btn btn-success">Save changes</button>
             </div>
         </form>
         <h2>Cards</h2>
             <ul>
-                <div class="d-flex flex-column bd-highlight mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        Question
+                    </div>
+                    <div class="col-md-4 offset-md-4">
+                        Answer
+                    </div>
+                </div>
+                <div class="d-flex flex-column bd-highlight mb-3 row-gap-3">
                     {% for card in cards %}
-                    <div class="row bd-highlight border">
-                        <div class="col-6 col-sm-3">
-                            {{ card.question }}
+                    <div class="row bd-highlight border border-secondary-subtle rounded">
+                        <div class="col border border-secondary-subtle rounded">
+                            <div class="col-6 col-sm-3">
+                                {{ card.question }}
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                {% if card.question_image %}
+                                    <img src="{{ card.question_image.url }}" class="img-thumbnail rounded" alt="Question Image">
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="col-6 col-sm-3">
-                            {% if card.question_image %}
-                                <img src="{{ card.question_image.url }}" class="img-thumbnail rounded" alt="Question Image">
-                            {% endif %}
+                        <div class="col border border-secondary-subtle rounded">
+                            <div class="col-6 col-sm-3">
+                                {{ card.answer }}
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                {% if card.answer_image %}
+                                    <img src="{{ card.answer_image.url }}" class="img-thumbnail rounded" alt="Answer Image">
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="col-6 col-sm-3">
-                            {{ card.answer }}
+                        <div class="col-1 p-3 mb-2">
+                            <a href="{% url 'edit_card' card_id=card.id %}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                            <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" data-delete-url="{% url 'delete_card' card_id=card.id %}"><i class="bi bi-trash"></i></a>
                         </div>
-                        <div class="col-6 col-sm-3">
-                            {% if card.answer_image %}
-                                <img src="{{ card.answer_image.url }}" class="img-thumbnail rounded" alt="Answer Image">
-                            {% endif %}
-                        </div>
-                        <a href="{% url 'edit_card' card_id=card.id %}">Edit</a>
                     </div>
                         {% empty %}
-                    <div class="p-2 bd-highlight"></div>
+                    <div class="p-2 bd-highlight">
                         No cards in this deck yet.
                     </div>
                     {% endfor %}
