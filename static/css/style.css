@@ -156,9 +156,9 @@ body {
 /* Media query: smaller phones */
 @media screen and (max-width: 576px) {
   .carousel-control-next {
-    visibility: hidden;
+    display: none;
   }
   .carousel-control-prev {
-    visibility: hidden;
+    display: none;
   }
 }
