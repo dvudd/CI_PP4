@@ -22,7 +22,7 @@
             </div>
             {% else %}
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <p>There are no cards in this deck yet.</p>
+                    <p>There are no cards in this deck yet. Let's add some!</p>
                     <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">Add Cards <i class="bi bi-pencil-square"></i></a>
                 </div>
             {% endif %}
