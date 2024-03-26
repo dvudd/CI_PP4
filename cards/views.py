@@ -169,7 +169,6 @@ def edit_deck(request, deck_id):
     """
     deck = get_object_or_404(Deck, id=deck_id, subject__creator=request.user)
 
-    cards = deck.card_set.all()
     if request.method == 'POST':
         form = DeckForm(request.POST, instance=deck)
         if form.is_valid():
@@ -177,10 +176,11 @@ def edit_deck(request, deck_id):
             return redirect('deck_detail', deck_id=deck.id)
     else:
         form = DeckForm(instance=deck)
+    num_cards = deck.card_set.count()
     return render(
         request,
         'cards/deck_edit.html',
-        {'form': form, 'deck': deck, 'cards': cards, }
+        {'form': form, 'deck': deck, 'num_cards': num_cards}
     )
 
 
@@ -203,99 +203,58 @@ def delete_deck(request, deck_id):
 
 
 # CARDS
-# Create Card
+# Create and update Card
 @login_required
-def create_card(request, deck_id):
+def manage_card(request, deck_id, card_id=None):
     """
-    Create a new card.
+    Handles creation and updating of cards.
 
-    Allows a logged-in user to create a new card. The user is redirected
-    to the deck detail page upon successful creation
+    If a card ID is provided, the view functions as an edit form for the
+    specified card.
+    If no card ID is provided, the view presents a form
+    for creating a new card.
     """
     deck = get_object_or_404(Deck, id=deck_id, subject__creator=request.user)
+    if card_id:
+        card = get_object_or_404(Card, id=card_id, deck=deck)
+        action = "Edit"
+    else:
+        card = None
+        action = "Create"
 
     if request.method == 'POST':
-        form = CardForm(request.POST, request.FILES)
+        form = CardForm(request.POST, request.FILES, instance=card)
         if form.is_valid():
             card = form.save(commit=False)
             card.deck = deck
             card.save()
-            return redirect('deck_detail', deck_id=deck.id)
-    else:
-        form = CardForm()
-    return render(
-        request,
-        'cards/card_create.html',
-        {'form': form, 'deck': deck}
-    )
-
-
-# Card Details
-def card_detail(request, card_id):
-    """
-    Display the details of a specific card.
-
-    Retrieves and displays details of a card only if the
-    logged in user is the creator of the subject, if not the
-    user is denied access.
-    """
-    card = get_object_or_404(
-        Card,
-        id=card_id,
-        deck__subject__creator=request.user
-    )
-    return render(request, 'cards/card_detail.html', {'card': card})
-
-
-# Edit Card
-@login_required
-def edit_card(request, card_id):
-    """
-    Edit an existing card.
-
-    Allows the creator of the subject to edit the cards details.
-    After a successful edit the user is redirected to the
-    detail page.
-    """
-    card = get_object_or_404(
-        Card,
-        id=card_id,
-        deck__subject__creator=request.user
-    )
-
-    if request.method == 'POST':
-        form = CardForm(request.POST, instance=card)
-        if form.is_valid():
-            form.save()
-            return redirect('card_detail', card_id=card.id)
+            form = CardForm()
     else:
         form = CardForm(instance=card)
-    return render(
-        request,
-        'cards/card_edit.html',
-        {'form': form, 'card': card}
-    )
+    cards = Card.objects.filter(deck=deck).order_by('-created_at')
+    return render(request, 'cards/card_form.html', {'form': form, 'deck': deck, 'cards': cards, 'action': action})
 
 
 # Delete Card
 @login_required
 def delete_card(request, card_id):
     """
-    Delete a existing card.
+    Delete an existing card.
 
     Allows the creator of the subject to delete the card.
-    After a successful deletion, the user is redirected to the
-    subject detail page.
+    After a successful deletion, the user is redirected back to the 
+    create card page to continue managing other cards within the deck.
     """
     card = get_object_or_404(
         Card,
         id=card_id,
         deck__subject__creator=request.user
     )
-
+    deck_id = card.deck.id
     card.delete()
     messages.success(request, "Card deleted successfully")
-    return redirect('deck_detail', deck_id=card.deck.id)
+    return redirect('create_card', deck_id=deck_id)
+
 
 
 # Quiz view

@@ -8,7 +8,7 @@
             <div class="col-8 text-end">
             {% if deck.subject.creator == user %}
                 <div class="btn-group">
-                    <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success"><i class="bi bi-plus-square-fill"></i> Add Card</a>
+                    <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">Manage Cards <i class="bi bi-pencil-square"></i></a>
                 </div>
             </div>
             {% endif %}
@@ -21,7 +21,10 @@
                 <a href="{% url 'quiz_view' deck_id=deck.id %}" class="btn btn-success btn-lg">Start Quiz <span class="badge text-bg-light">{{ num_cards }}</span></a>
             </div>
             {% else %}
-                <p>There are no cards in this deck yet.</p>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <p>There are no cards in this deck yet.</p>
+                    <a href="{% url 'create_card' deck_id=deck.id %}" class="btn btn-success">Add Cards <i class="bi bi-pencil-square"></i></a>
+                </div>
             {% endif %}
         </div>
     </div>

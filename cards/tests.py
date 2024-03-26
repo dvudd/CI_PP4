@@ -489,46 +489,63 @@ class CardViewTests(TestCase):
             args=[self.deck.id])
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'cards/card_create.html')
+        self.assertTemplateUsed(response, 'cards/card_form.html')
 
-    def test_card_detail(self):
+    def test_card_submission(self):
         """
-        Test the display of a card's detail view.
+        Test the submission of a new card.
         """
-        response = self.client.get(reverse('card_detail', args=[self.card.id]))
+        response = self.client.post(reverse(
+            'create_card',
+            args=[self.deck.id]),
+            {
+                'question': 'New Question', 'answer': 'New Answer'
+            }
+        )
+        self.assertEqual(Card.objects.count(), 2)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'cards/card_detail.html')
+        self.assertTemplateUsed(response, 'cards/card_form.html')
 
     def test_edit_card(self):
         """
         Test the editing of a card.
         """
-        response = self.client.get(reverse('edit_card', args=[self.card.id]))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'cards/card_edit.html')
-        post_response = self.client.post(reverse(
+        self.client.login(
+            username='testuser@example.com',
+            password='12345'
+        )
+        card_initial_question = self.card.question
+        card_initial_answer = self.card.answer
+        updated_question = 'Updated Question'
+        updated_answer = 'Updated Answer'
+
+        response = self.client.post(reverse(
             'edit_card',
-            args=[self.card.id]),
-            {'question': 'Updated Question', 'answer': 'Updated Answer'}
-        )
+            args=[self.deck.id,
+            self.card.id]),
+            {
+                'question': updated_question,
+                'answer': updated_answer
+            },
+            follow=True)
+        self.assertEqual(response.status_code, 200)
         self.card.refresh_from_db()
-        self.assertEqual(self.card.question, 'Updated Question')
-        self.assertEqual(self.card.answer, 'Updated Answer')
-        self.assertRedirects(post_response, reverse(
-            'card_detail',
-            args=[self.card.id])
-        )
+        self.assertNotEqual(self.card.question, card_initial_question)
+        self.assertNotEqual(self.card.answer, card_initial_answer)
+        self.assertEqual(self.card.question, updated_question)
+        self.assertEqual(self.card.answer, updated_answer)
+        self.assertTemplateUsed(response, 'cards/card_form.html')
 
     def test_delete_card(self):
         """
         Test the deletion of a card.
         """
-        response = self.client.post(reverse(
-            'delete_card',
+        response = self.client.post(
+            reverse('delete_card',
             args=[self.card.id])
         )
         self.assertRedirects(response, reverse(
-            'deck_detail',
+            'create_card',
             args=[self.deck.id])
         )
         with self.assertRaises(Card.DoesNotExist):
