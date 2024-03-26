@@ -1,7 +1,7 @@
 {% extends "cards/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+    <div class="content-section border border-secondary-subtle rounded">
         <div class="row">
             <div class="col-4">
                 <a href="{% url 'deck_detail' deck_id=deck.id %}" class="btn btn-secondary"><i class="bi bi-arrow-left-square-fill"></i> {{ deck.name }}</a>

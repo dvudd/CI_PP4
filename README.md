@@ -198,6 +198,7 @@ $ python manage.py runserver
 - Require either an image or an text for question/answer [Stack Overflow](https://stackoverflow.com/questions/46286089/specific-way-of-requiring-one-of-two-fields-in-django-model-definition)
 - Javascript Touch events: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
 - Django Testing: [Django Documentation](https://docs.djangoproject.com/en/5.0/topics/testing/)
+- Dark mode toggle: [404GamerNotFound](https://github.com/404GamerNotFound/bootstrap-5.3-dark-mode-light-mode-switch)
 ### Acknowledgements
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\

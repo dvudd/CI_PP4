@@ -25,23 +25,29 @@
             <nav class="navbar navbar-dark bg-steel fixed-top">
                 <div class="container">
                     <a class="navbar-brand mr-4" href="{% url 'cards-home' %}">FlashCards</a>
-                    {% if user.is_authenticated %}
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                            <img src="{{ user.profile.image.url }}" alt="{{ user.first_name }}" style="width:40px;" class="rounded-pill">
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarToggle" align="right">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                            </li>
-                        </ul>
+                    <div class="me-4">
+                        <!-- Theme Toggle -->
+                        <input type="checkbox" class="btn-check" id="darkModeSwitch" checked autocomplete="off">
+                        <label class="btn" for="darkModeSwitch"><i class="bi bi-moon-stars-fill"></i></label>
+                        <!-- Navigation bar toggle -->
+                        {% if user.is_authenticated %}
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                                <img src="{{ user.profile.image.url }}" alt="{{ user.first_name }}" style="width:40px;" class="rounded-pill">
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarToggle" align="right">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'profile' %}">{{ user.first_name }} {{ user.last_name }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-light">Login</a>
+                        {% endif %}
                     </div>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="btn btn-light">Login</a>
-                    {% endif %}
                 </div>
             </nav>
         </header>
