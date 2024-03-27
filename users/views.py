@@ -47,8 +47,6 @@ def user_login(request):
                 login(request, user)
                 messages.success(request, 'You are now logged in.')
                 return redirect('cards-home')
-            else:
-                messages.error(request, 'Invalid email or password.')
     else:
         form = LoginForm()
 

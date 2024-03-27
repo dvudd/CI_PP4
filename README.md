@@ -84,46 +84,43 @@ Since most of the testing is done using automatic tests, the manual tests leaned
 
 ### Automatic Testing
 Automatic testing is done using Django's built-in test module.
-There are 37 tests made.
-| Test Case                                            | Description                                                  | Outcome |
-|------------------------------------------------------|--------------------------------------------------------------|---------|
-| test_card_submission (cards.tests.CardViewTests)     | Test the submission of a new card.                           | ok      |
-| test_create_card (cards.tests.CardViewTests)         | Test the creation of a card.                                 | ok      |
-| test_delete_card (cards.tests.CardViewTests)         | Test the deletion of a card.                                 | ok      |
-| test_edit_card (cards.tests.CardViewTests)           | Test the editing of a card.                                  | ok      |
-| test_create_deck (cards.tests.DeckViewTests)         | Test the creation of a deck.                                 | ok      |
-| test_deck_detail (cards.tests.DeckViewTests)         | Test the display of a decks's detail view.                   | ok      |
-| test_delete_deck (cards.tests.DeckViewTests)         | Test the deletion of a deck.                                 | ok      |
-| test_edit_deck (cards.tests.DeckViewTests)           | Test the editing of a deck.                                  | ok      |
-| test_card_form_invalid (cards.tests.FormsTest)       | Test the CardForm with invalid data.                         | ok      |
-| test_card_form_valid_with_image (cards.tests.FormsTest) | Test the CardForm with valid image data.                    | ok      |
-| test_card_form_valid_with_text (cards.tests.FormsTest) | Test the CardForm with valid data.                          | ok      |
-| test_deck_form_valid (cards.tests.FormsTest)         | Test the DeckForm with valid data.                           | ok      |
-| test_subject_form_valid (cards.tests.FormsTest)      | Test the SubjectForm with valid data.                        | ok      |
-| test_home_view_authenticated (cards.tests.HomeViewTests) | Test the home view with an authenticated user.             | ok      |
-| test_home_view_unauthenticated (cards.tests.HomeViewTests) | Test the home view with an unauthenticated user.           | ok      |
-| test_card_creation_with_images (cards.tests.ModelsTest) | Tests the creation of a Card using an image as both the question and answer. | ok |
-| test_card_creation_with_question (cards.tests.ModelsTest) | Tests the creation of a Card with text as question and answer. | ok |
-| test_deck_creation (cards.tests.ModelsTest)          | Tests the creation of a Deck.                                | ok      |
-| test_subject_creation (cards.tests.ModelsTest)       | Tests the creation of a Subject.                             | ok      |
-| test_quiz_access (cards.tests.QuizViewTest)          | Tests the access of the quiz.                                | ok      |
-| test_quiz_context (cards.tests.QuizViewTest)         | Tests that the correct cards are presented.                  | ok      |
-| test_create_subject (cards.tests.SubjectViewTests)   | Test the creation of a subject.                              | ok      |
-| test_delete_subject (cards.tests.SubjectViewTests)   | Test the deletion of a subject.                              | ok      |
-| test_edit_subject (cards.tests.SubjectViewTests)     | Test the editing of a subject.                               | ok      |
-| test_subject_detail (cards.tests.SubjectViewTests)   | Test the display of a subject's detail view.                 | ok      |
-| test_login_failure (users.tests.AuthenticationTest)  | Tests so the user cannot log in with the wrong credentials.  | ok      |
-| test_login_success (users.tests.AuthenticationTest)  | Tests so the user can log in.                                | ok      |
-| test_logout (users.tests.AuthenticationTest)         | Tests so the user can log out.                               | ok      |
-| test_profile_update_form_valid (users.tests.FormsTest) | Test the profile update with valid data.                   | ok      |
-| test_user_register_form_duplicate_email (users.tests.FormsTest) | Test the user registration with an existing email.       | ok      |
-| test_user_register_form_invalid (users.tests.FormsTest) | Test the user registration with invalid data.             | ok      |
-| test_user_register_form_valid (users.tests.FormsTest) | Test the user registration with valid data.                 | ok      |
-| test_user_update_form_valid (users.tests.FormsTest)   | Test the user update form with valid data.                   | ok      |
-| test_login_user (users.tests.ModelsTest)              | Tests that a user can login.                                 | ok      |
-| test_profile_creation (users.tests.ModelsTest)        | Tests that a profile is automatically created for a new user.| ok      |
-| test_register_user (users.tests.ModelsTest)           | Tests that a new user can be registered.                     | ok      |
-| test_update_profile (users.tests.ModelsTest)          | Tests the functionality of updating user profile.            | ok      |
+There are 45 tests made and I used [coverage.py](https://coverage.readthedocs.io/en/latest/) to get a grasp on the width of the tests.
+The tests covers 98% of the projects code.
+| Name | Stmts | Miss| Cover | Missing |
+| ---- | ----- | --- | ----- | ------- |
+| cards/__init__.py | 0 | 0 | 100% |
+| cards/admin.py | 21 | 0 | 100% |
+| cards/apps.py | 4 | 0 | 100% |
+| cards/forms.py | 14 | 0 | 100% |
+| cards/migrations/0001_initial.py | 8 | 0 | 100% |
+| cards/migrations/0002_deck.py | 6 | 0 | 100% |
+| cards/migrations/0003_card.py | 6 | 0 | 100% |
+| cards/migrations/0004_auto_20240216_1844.py | 5 | 0 | 100% |
+| cards/migrations/0005_card_answer_image_card_question_image.py | 5 | 0 | 100% |
+| cards/migrations/0006_deck_description_alter_card_answer_and_more.py | 4 | 0 | 100% |
+| cards/migrations/__init__.py | 0 | 0 | 100% |
+| cards/models.py | 51 | 0 | 100% |
+| cards/tests.py | 219 | 0 | 100% |
+| cards/urls.py | 3 | 0 | 100% |
+| cards/views.py | 118 | 2 | 98% | 272, 276 |
+| env.py | 5 | 0 | 100% |
+| flashcards/__init__.py | 0 | 0 | 100% |
+| flashcards/asgi.py | 4 | 4 | 0% | 10-16 |
+| flashcards/settings.py | 36 | 1 | 97% | 87 |
+| flashcards/urls.py | 8 | 1 | 88% | 37 |
+| flashcards/wsgi.py | 4 | 4 | 0% | 10-16 |
+| manage.py | 12 | 2 | 83% | 12-13 |
+| users/__init__.py | 0 | 0 | 100% |
+| users/admin.py | 3 | 0 | 100% |
+| users/apps.py | 6 | 0 | 100% |
+| users/forms.py | 61 | 0 | 100% |
+| users/migrations/0001_initial.py | 7 | 0 | 100% |
+| users/migrations/__init__.py | 0 | 0 | 100% |
+| users/models.py | 23 | 0 | 100% |
+| users/signals.py | 11 | 0 | 100% |
+| users/tests.py | 100 | 0 | 100% |
+| users/views.py | 42 | 0 | 100% |
+| TOTAL | 786 | 14 | 98%  |
 To run the tests, run the following command:
 ```sh
 

@@ -6,7 +6,12 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from PIL import Image
 from .models import Profile
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import( 
+    UserRegisterForm,
+    UserUpdateForm,
+    ProfileUpdateForm,
+    LoginForm
+)
 
 
 class ModelsTest(TestCase):
@@ -25,6 +30,7 @@ class ModelsTest(TestCase):
             settings.BASE_DIR,
             'cards/tests/test_images/sample-large.jpg'
         )
+        self.profile = Profile.objects.get(user=self.user)
 
     def test_profile_creation(self):
         """
@@ -59,6 +65,13 @@ class ModelsTest(TestCase):
         self.client.login(username='test@example.com', password='testpass123')
         response = self.client.get(reverse('cards-home'))
         self.assertEqual(str(response.context['user']), 'test@example.com')
+
+    def test_profile_str(self):
+        """
+        Test the string representation of the Profile model.
+        """
+        string = f'{self.user.username} Profile'
+        self.assertEqual(str(self.profile), string)
 
     def test_update_profile(self):
         """
@@ -194,6 +207,32 @@ class FormsTest(TestCase):
             instance=self.profile
         )
         self.assertTrue(form.is_valid())
+
+
+class UserViewTests(TestCase):
+    """
+    Tests for the user view.
+    This class ensures the registration and login views are accessible.
+    """
+    def test_register_view(self):
+        """
+        Test the registration view.
+        """
+        response = self.client.get(reverse('register'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'register.html')
+        self.assertIsInstance(response.context['form'], UserRegisterForm)
+        self.assertFalse(response.context['form'].is_bound)
+    
+    def test_login_view(self):
+        """
+        Test the login view.
+        """
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
+        self.assertIsInstance(response.context['form'], LoginForm)
+        self.assertFalse(response.context['form'].is_bound)
 
 
 class AuthenticationTest(TestCase):
