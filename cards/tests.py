@@ -18,28 +18,27 @@ class ModelsTest(TestCase):
     associated with each other, and that image processing (resizing and format
     conversion) is handled as expected.
     """
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Set up data for the test case.
         """
-        cls.user = User.objects.create_user(
+        self.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
         )
-        cls.subject = Subject.objects.create(
+        self.subject = Subject.objects.create(
             name="Nostalgia",
-            creator=cls.user
+            creator=self.user
         )
-        cls.deck = Deck.objects.create(
+        self.deck = Deck.objects.create(
             name="Cartoons",
-            subject=cls.subject
+            subject=self.subject
         )
-        cls.large_image_path = os.path.join(
+        self.large_image_path = os.path.join(
             settings.BASE_DIR,
             'cards/tests/test_images/sample-large.jpg'
         )
-        cls.small_image_path = os.path.join(
+        self.small_image_path = os.path.join(
             settings.BASE_DIR,
             'cards/tests/test_images/sample-small.jpg'
         )
@@ -135,20 +134,19 @@ class FormsTest(TestCase):
     This class focuses on verifying the forms used for creating
     subjects, decks, and cards within the application.
     """
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Set up data for the test case.
         """
-        cls.user = User.objects.create_user(
+        self.user = User.objects.create_user(
             username='testuser@example.com',
             password='12345'
         )
-        cls.large_image_path = os.path.join(
+        self.large_image_path = os.path.join(
             settings.BASE_DIR,
             'cards/tests/test_images/sample-large.jpg'
         )
-        cls.small_image_path = os.path.join(
+        self.small_image_path = os.path.join(
             settings.BASE_DIR,
             'cards/tests/test_images/sample-small.jpg'
         )
@@ -229,26 +227,25 @@ class HomeViewTests(TestCase):
     users, ensuring that the correct template is used and that the appropriate
     context data is provided.
     """
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Set up data for the test case.
         """
-        cls.user = get_user_model().objects.create_user(
+        self.user = get_user_model().objects.create_user(
             username='testuser@example.com',
             password='12345'
         )
-        cls.subject1 = Subject.objects.create(
+        self.subject1 = Subject.objects.create(
             name="Test Subject 1",
-            creator=cls.user
+            creator=self.user
         )
-        cls.subject2 = Subject.objects.create(
+        self.subject2 = Subject.objects.create(
             name="Test Subject 2",
-            creator=cls.user
+            creator=self.user
         )
-        cls.subject3 = Subject.objects.create(
+        self.subject3 = Subject.objects.create(
             name="Test Subject 3",
-            creator=cls.user
+            creator=self.user
         )
 
     def test_home_view_authenticated(self):

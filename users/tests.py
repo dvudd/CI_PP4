@@ -107,18 +107,17 @@ class FormsTest(TestCase):
     This class focuses on verifying the forms used for user creation and
     profile updating.
     """
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Set up data for the test case.
         """
-        cls.user = User.objects.create_user(
+        self.user = User.objects.create_user(
             username='test@example.com',
             email='test@example.com',
             password='testpass123'
         )
-        cls.profile = Profile.objects.get(user=cls.user)
-        cls.large_image_path = os.path.join(
+        self.profile = Profile.objects.get(user=self.user)
+        self.large_image_path = os.path.join(
             settings.BASE_DIR,
             'cards/tests/test_images/sample-large.jpg'
         )
@@ -203,12 +202,11 @@ class AuthenticationTest(TestCase):
     This class focusing on the functionality and reliability of the
     login and logout processes.
     """
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
         """
         Set up data for the test case.
         """
-        cls.user = User.objects.create_user(
+        self.user = User.objects.create_user(
             username='test@example.com',
             email='test@example.com',
             password='testpass123'
