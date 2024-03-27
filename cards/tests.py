@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 from PIL import Image
 from .models import Subject, Deck, Card
 from .forms import SubjectForm, DeckForm, CardForm
@@ -50,6 +51,12 @@ class ModelsTest(TestCase):
         self.assertEqual(self.subject.name, "Nostalgia")
         self.assertEqual(self.subject.creator.username, "testuser@example.com")
 
+    def test_subject_str(self):
+        """
+        Test the string representation of the Subject model.
+        """
+        self.assertEqual(str(self.subject), "Nostalgia")
+
     def test_deck_creation(self):
         """
         Tests the creation of a Deck.
@@ -57,6 +64,12 @@ class ModelsTest(TestCase):
         deck = Deck.objects.get(id=1)
         self.assertEqual(deck.name, "Cartoons")
         self.assertEqual(deck.subject.name, "Nostalgia")
+
+    def test_deck_str(self):
+        """
+        Test the string representation of the Deck model.
+        """
+        self.assertEqual(str(self.deck), "Cartoons")
 
     def test_card_creation_with_question(self):
         """
@@ -126,6 +139,24 @@ class ModelsTest(TestCase):
                 (500, 500),
                 "Small image was resized incorrectly."
             )
+
+    def test_card_clean_without_question(self):
+        """
+        Test that a ValidationError is raised if a card is created without
+        a question.
+        """
+        card = Card(deck=self.deck, answer="Test Answer")
+        with self.assertRaises(ValidationError):
+            card.clean()
+
+    def test_card_clean_without_answer(self):
+        """
+        Test that a ValidationError is raised if a card is created without
+        an answer.
+        """
+        card = Card(deck=self.deck, question="Test Question")
+        with self.assertRaises(ValidationError):
+            card.clean()
 
 
 class FormsTest(TestCase):
@@ -398,6 +429,21 @@ class DeckViewTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'cards/deck_create.html')
+
+    def test_create_deck_post(self):
+        """
+        Test the creation of a deck via POST request.
+        """
+        decks_before = Deck.objects.count()
+        post_data = {
+            'name': 'New Deck',
+            'description': 'A new test deck',
+        }
+        response = self.client.post(reverse('create_deck', args=[self.subject.id]), post_data)
+        self.assertEqual(Deck.objects.count(), decks_before + 1)
+        new_deck = Deck.objects.latest('id')
+        self.assertEqual(new_deck.subject, self.subject)
+        self.assertRedirects(response, reverse('deck_detail', args=[new_deck.id]))
 
     def test_deck_detail(self):
         """
