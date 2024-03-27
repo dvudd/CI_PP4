@@ -73,19 +73,10 @@ No errors were found then passing through the [CI Python Linter](https://pep8ci.
 
 </details>
 
-### Manual Testing
-Since most of the testing is done using automatic tests, the manual tests leaned more on user experience.
-| Test Cae | Description | Outcome |
-| --------- | ----------- | ------ |
-| UX | Site is fully responsive | PASS |
-| UX | The correct default profile image is presented | PASS |
-| UX | The correct custom profile image is presented | PASS |
-| UX | The correct card images is presented | PASS |
-
 ### Automatic Testing
-Automatic testing is done using Django's built-in test module.
-There are 45 tests made and I used [coverage.py](https://coverage.readthedocs.io/en/latest/) to get a grasp on the width of the tests.
-The tests covers 98% of the projects code.
+Automatic testing is done by using Django's built-in test module.
+[coverage.py](https://coverage.readthedocs.io/en/latest/) was used to get a grasp on the width of the tests.
+There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder.
 | Name | Stmts | Miss| Cover | Missing |
 | ---- | ----- | --- | ----- | ------- |
 | cards/__init__.py | 0 | 0 | 100% |
@@ -127,10 +118,20 @@ To run the tests, run the following command:
 python manage.py test
 
 ```
+### Manual Testing
+In addition to the automatic tests, manual testing was conducted to ensure the user experience.
+| Test Case | Description | Outcome |
+| --------- | ----------- | ------ |
+| UX | Site is fully responsive | PASS |
+| UX | The correct default profile image is presented | PASS |
+| UX | The correct custom profile image is presented | PASS |
+| UX | The correct card images is presented | PASS |
+| UX | The animation of swipes are presented as expected during the quiz | PASS |
+| UX | Touch controls during the quiz works as expected | PASS |
 ## Bugs
 
 ### Known Bugs
-
+No known bugs remaining.
 ## Technologies Used
 - IDE: Gitpod
 - Repository: GitHub
@@ -146,6 +147,21 @@ python manage.py test
 ### Libraries
 - Django
 - Bootstrap
+- Requirements:
+    ```requirements.txt
+    asgiref==3.7.2
+    cloudinary==1.38.0
+    crispy-bootstrap5==2023.10
+    dj-database-url==2.1.0
+    dj3-cloudinary-storage==0.0.6
+    Django==4.2.10
+    django-crispy-forms==2.1
+    gunicorn==21.2.0
+    pillow==10.2.0
+    psycopg2==2.9.9
+    sqlparse==0.4.4
+    whitenoise==6.6.0
+    ```
 ## Deployment
 ### Heroku
 !note: add steps to implement cloudinary and elephantSQL.
@@ -156,13 +172,19 @@ The site was deployed to Heroku pages. The steps to deploy a site are as follows
 3. Enter the app name, select your region, and click on "Create app"
 4. Navigate to the "Settings" tab
 5. Click on "Add buildpack", select "Python", and click on "Add Buildpack"
-6. Click on "Add buildpack" again, this time select "nodejs", and click on "Add Buildpack"
-7. Navigate to the "Deploy" tab
-8. In the "Deployment method" section, select "GitHub"
-9. In the "Connect to GitHub" section, select "Search"
-10. Find the desired repository, for this project I used "CI_PP4", and click "Connect"
-11. Click on either "Enable Automatic Deploys" or "Deploy Branch"
-12. Once the project has been deployed, scroll up and click on "Open app"
+6. Click on "Reveal Config Vars"
+7. Enter your details
+    | KEY | VALUE |
+    | --- | ----- |
+    | CLOUDINARY_URL | <Your url to cloudinary> |
+    | DATABASE_URL | <Your url to ElephantSQL> |
+    | SECRET_KEY | <Your secret key> |
+8. Navigate to the "Deploy" tab
+9. In the "Deployment method" section, select "GitHub"
+10. In the "Connect to GitHub" section, select "Search"
+11. Find the desired repository, for this project I used "CI_PP4", and click "Connect"
+12. Click on either "Enable Automatic Deploys" or "Deploy Branch"
+13. Once the project has been deployed, scroll up and click on "Open app"
 ### Forking the GitHub Repository
 By forking the GitHub Repository, we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps:
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/dvudd/CI_PP4)
@@ -187,7 +209,29 @@ $ git clone https://github.com/dvudd/CI_PP4
 $ pip install requirements.txt
 
 ```
-9. Run the server:
+9. Create a file named `env.py`, the file should contain this:
+    ```env.py
+    import os
+
+    # Set DEBUG to True
+    os.environ.setdefault(
+        "DEBUG", "True"
+    )
+    # Secret Key
+    os.environ.setdefault(
+        "SECRET_KEY", "<Your secret key>"
+    )
+    # ElephantSQL
+    os.environ.setdefault(
+        "DATABASE_URL", "postgres://<Your url to ElephantSQL>"
+    )
+    # Cloudinary
+    os.environ.setdefault(
+        "CLOUDINARY_URL", "cloudinary://<Your url to Cloudinary>"
+    )
+    ```
+10. Change the details according to your needs.
+11. Run the server:
 ```sh
 
 $ python manage.py runserver
@@ -204,6 +248,7 @@ During development of this project I often referenced from the offical Django an
 - Javascript Touch events: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
 - Django Testing: [Django Documentation](https://docs.djangoproject.com/en/5.0/topics/testing/)
 - Dark mode toggle: [404GamerNotFound](https://github.com/404GamerNotFound/bootstrap-5.3-dark-mode-light-mode-switch)
+- Test __str__(self): [Stack Overflow](https://stackoverflow.com/questions/57038937/python-test-coverage-for-class-str)
 ### Acknowledgements
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
