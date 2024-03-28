@@ -50,10 +50,11 @@ quiz.js
 </details>
 
 #### Python
-No errors were found then passing through the [CI Python Linter](https://pep8ci.herokuapp.com/#).
+No errors were found when passing through the [CI Python Linter](https://pep8ci.herokuapp.com/#).
 <details><summary>Results</summary>
 
 ![Python Validator Results](readme-images/validator-python.webp)
+All python files was tested with the same result.
 
 </details>
 
