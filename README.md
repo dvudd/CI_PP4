@@ -1,24 +1,23 @@
 # FlashCards
-[FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is meant to help students learn using the proven method of using flash cards.
-
-## User Stories
+[FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is a tool designed to help students focus on learning. It uses the simple yet effective method of flashcards to help students memorize and understand various subjects. Create your own flashcards, manage them in decks, and review them at your own pace.
 
 ## Features
 
 ## Future Features
-
+- Allow users to share and collaborate in subjects.
 ## Development
-### Project Inception
-The main goal of the project was to create a easy to use and non-distracting app for students. 
+### Agile Development
+During the development process, I tried to follow an agile development process, in my [GitHub Project](https://github.com/users/dvudd/projects/3) all user stories and bugs are listed.
 ### Database ERD
 ![Database Diagram](readme-images/database-diagram.webp)
 The database was planned out using [dbdiagram.io](https://dbdiagram.io).
 ### Look and feel
-To get a basic layout on how the website should look I used Balsamiq Wireframes. The main goal was to create an minimal clutter-free look that doesn't distract the users from the site's main goal, to learn. To give the quiz a more appealing and "fluid" look I looked back on the JavaScript from my previous project [Dungeons and Dices](https://github.com/dvudd/CI_PP2).
-### Wireframes
 ![Wireframes](readme-images/wireframes.webp)
+To get a basic layout on how the website should look, I used Balsamiq Wireframes. The main goal was to create a minimal, clutter-free look that doesn't distract the users from the site's main goal, to learn. In order to give the quiz a more appealing and “fluid” look, I looked back to the JavaScript from my previous project, [Dungeons and Dices](https://github.com/dvudd/CI_PP2).
+#### Colors
+The website is using a single custom color (#527d54) to distinguish the navigation bar from the body. This color matches both the dark and light bootstrap themes.
 ## Optimization
-To ensure a fast and responsive user experience, a method for handling user-uploaded images was implemented to automatically resize (800x800px for card images, 300x300 for profile pictures) and convert to the .webp format. 
+To ensure a fast and responsive user experience, a method for handling user-uploaded images was implemented to automatically resize (800×800px for card images, 300×300 for profile pictures) and convert to the .webp format. 
 By doing this, a significant step to reduce storage space and to improve load times are taken.
 ## Testing
 ### Validator Testing
@@ -76,7 +75,7 @@ No errors were found then passing through the [CI Python Linter](https://pep8ci.
 ### Automatic Testing
 Automatic testing is done by using Django's built-in test module.
 [coverage.py](https://coverage.readthedocs.io/en/latest/) was used to get a grasp on the width of the tests.
-There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder.
+There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder. The 
 | Name | Stmts | Miss| Cover | Missing |
 | ---- | ----- | --- | ----- | ------- |
 | cards/__init__.py | 0 | 0 | 100% |
@@ -129,7 +128,7 @@ In addition to the automatic tests, manual testing was conducted to ensure the u
 | UX | The animation of swipes are presented as expected during the quiz | PASS |
 | UX | Touch controls during the quiz works as expected | PASS |
 ## Bugs
-
+Fixed bugs are listed in my [GitHub Project](https://github.com/users/dvudd/projects/3)
 ### Known Bugs
 No known bugs remaining.
 ## Technologies Used
@@ -173,12 +172,12 @@ The site was deployed to Heroku pages. The steps to deploy a site are as follows
 4. Navigate to the "Settings" tab
 5. Click on "Add buildpack", select "Python", and click on "Add Buildpack"
 6. Click on "Reveal Config Vars"
-7. Enter your details
+7. Enter your details:
     | KEY | VALUE |
     | --- | ----- |
-    | CLOUDINARY_URL | <Your url to cloudinary> |
-    | DATABASE_URL | <Your url to ElephantSQL> |
-    | SECRET_KEY | <Your secret key> |
+    | CLOUDINARY_URL | Your URL to cloudinary |
+    | DATABASE_URL | Your URL to ElephantSQL |
+    | SECRET_KEY | Your secret key |
 8. Navigate to the "Deploy" tab
 9. In the "Deployment method" section, select "GitHub"
 10. In the "Connect to GitHub" section, select "Search"
@@ -248,7 +247,7 @@ During development of this project I often referenced from the offical Django an
 - Javascript Touch events: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events)
 - Django Testing: [Django Documentation](https://docs.djangoproject.com/en/5.0/topics/testing/)
 - Dark mode toggle: [404GamerNotFound](https://github.com/404GamerNotFound/bootstrap-5.3-dark-mode-light-mode-switch)
-- Test __str__(self): [Stack Overflow](https://stackoverflow.com/questions/57038937/python-test-coverage-for-class-str)
+- Test str(self): [Stack Overflow](https://stackoverflow.com/questions/57038937/python-test-coverage-for-class-str)
 ### Acknowledgements
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
