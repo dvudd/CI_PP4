@@ -2,22 +2,24 @@
 {% block content %}
     <!-- This page is only displayed for non-authenticated users -->
     <div class="content-section border border-secondary-subtle rounded">
-        <h1>Welcome to Your Personal Learning Space!</h1>
-
-        Dive into a world where learning is made personal, efficient, and incredibly engaging. Our platform is dedicated to individuals who seek a more active and effective way to absorb knowledge, using one of the most proven methods available today: flashcards.
-
-        <h2>Why Flashcards?</h2>
-
-        Focused Learning: Flashcards allow you to concentrate on one concept at a time, making it easier to memorize and understand complex information through spaced repetition and active recall.
-        Customizable Content: Tailor your learning experience to suit your needs. Whether it's a new language, a professional certification, or any other subject, you can create and organize flashcards that cater specifically to your learning goals.
-        Collaborative Environment: While we currently focus on personal learning experiences, we are exploring ways to foster a community where knowledge can be shared freely, opening doors to collective learning and knowledge exchange in the future.
-        Privacy-Centric: In a world cluttered with distractions and concerns over privacy, we stand out by offering a clean, ad-free learning environment. We value your trust and privacy, ensuring that your data stays yours. We don't sell user information to third parties, nor do we disrupt your learning experience with advertisements.
-        Creating an account with us not only gives you access to a powerful tool for your educational journey but also supports a platform that respects both your privacy and your desire for a focused learning environment.
-
-        <h2>Start Your Learning Journey Today!</h2>
-
-        Embrace a method that has stood the test of time, modernized for today's learner. Join us now, and take the first step towards mastering the subjects you're passionate about in an environment that puts you and your learning first.
-
-        [Sign Up Now]
+        <p>
+            <h1>Welcome to FlashCards!</h1>
+            Explore a world where learning is personal, fast, and fun. Flashcards are one of the most tried-and-true ways to absorb knowledge on our platform, and we're here to help.
+        </p>
+        <p>
+            <h3>Why Flashcards?</h3>
+            <figure>
+                <blockquote>
+                  <p>A flashcard or flash card is a card bearing information on both sides, which is intended to be used as an aid in memorization. Each flashcard typically bears a question or definition on one side and an answer or target term on the other. Flashcards are often used to memorize vocabulary, historical dates, formulae or any subject matter that can be learned via a question-and-answer format. Flashcards can be virtual (part of a flashcard software), or physical.
+                    Flashcards are an application of the testing effect − the finding that long-term memory is increased when some of the learning period is devoted to retrieving the information through testing with proper feedback. Study habits affect the rate at which a flashcard-user learns, and proper spacing of flashcards has been proven to accelerate learning.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                  <a href="https://en.wikipedia.org/wiki/Flashcard"><cite title="Source Title">Wikipedia</cite></a>
+                </figcaption>
+              </figure>
+        </p>
+        <div class="text-center">
+            <a href="{% url 'register' %}" class="btn btn-success">Sign Up Now</a>
+        </div>
     </div>
 {% endblock content %}
