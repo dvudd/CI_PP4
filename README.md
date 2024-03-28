@@ -1,4 +1,5 @@
 # FlashCards
+![Screenshot](readme-images/scrot_full.webp)\
 [FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is a tool designed to help students focus on learning. It uses the simple yet effective method of flashcards to help students memorize and understand various subjects. Create your own flashcards, manage them in decks, and review them at your own pace.
 
 ## Features
