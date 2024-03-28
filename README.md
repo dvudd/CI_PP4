@@ -146,25 +146,24 @@ No known bugs remaining.
 - Python
 ### Libraries
 - Django
+    - Requirements:
+        ```requirements.txt
+        asgiref==3.7.2
+        cloudinary==1.38.0
+        crispy-bootstrap5==2023.10
+        dj-database-url==2.1.0
+        dj3-cloudinary-storage==0.0.6
+        Django==4.2.10
+        django-crispy-forms==2.1
+        gunicorn==21.2.0
+        pillow==10.2.0
+        psycopg2==2.9.9
+        sqlparse==0.4.4
+        whitenoise==6.6.0
+        ```
 - Bootstrap
-- Requirements:
-    ```requirements.txt
-    asgiref==3.7.2
-    cloudinary==1.38.0
-    crispy-bootstrap5==2023.10
-    dj-database-url==2.1.0
-    dj3-cloudinary-storage==0.0.6
-    Django==4.2.10
-    django-crispy-forms==2.1
-    gunicorn==21.2.0
-    pillow==10.2.0
-    psycopg2==2.9.9
-    sqlparse==0.4.4
-    whitenoise==6.6.0
-    ```
 ## Deployment
 ### Heroku
-!note: add steps to implement cloudinary and elephantSQL.
 [Click here to go to the deployed site](https://ci-flashcards-0d9425f9c570.herokuapp.com)\
 The site was deployed to Heroku pages. The steps to deploy a site are as follows:
 1. Navigate to [Heroku](https://dashboard.heroku.com/apps)
