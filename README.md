@@ -2,9 +2,18 @@
 [FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is a tool designed to help students focus on learning. It uses the simple yet effective method of flashcards to help students memorize and understand various subjects. Create your own flashcards, manage them in decks, and review them at your own pace.
 
 ## Features
-
+### Navigation Bar
+#### Color Themes
+#### Profile
+### Main Page
+### Subjects
+### Decks
+### Cards
+### Quiz
+#### Touch Controls
 ## Future Features
 - Allow users to share and collaborate in subjects.
+- Implement the use of [Leitner system](https://en.wikipedia.org/wiki/Leitner_system) in the quiz.
 ## Development
 ### Agile Development
 During the development process, I tried to follow an agile development process, in my [GitHub Project](https://github.com/users/dvudd/projects/3) all user stories and bugs are listed.
@@ -162,6 +171,7 @@ No known bugs remaining.
         whitenoise==6.6.0
         ```
 - Bootstrap
+- Google Fonts was used to import the fonts "Mulish" and "Noto Sans".
 ## Deployment
 ### Heroku
 [Click here to go to the deployed site](https://ci-flashcards-0d9425f9c570.herokuapp.com)\
