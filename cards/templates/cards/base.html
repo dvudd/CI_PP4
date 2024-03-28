@@ -28,12 +28,10 @@
                     <div class="me-4">
                         <!-- Theme Toggle -->
                         <input type="checkbox" class="btn-check" id="darkModeSwitch" checked autocomplete="off">
-                        <label class="btn" for="darkModeSwitch"><i class="bi bi-moon-stars-fill"></i></label>
+                        <label class="btn border-0" for="darkModeSwitch"><i class="bi bi-moon-stars-fill"></i></label>
                         <!-- Navigation bar toggle -->
                         {% if user.is_authenticated %}
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                                <img src="{{ user.profile.image.url }}" alt="{{ user.first_name }}" style="width:40px;" class="rounded-pill">
-                        </button>
+                        <img src="{{ user.profile.image.url }}" alt="{{ user.first_name }}" style="width:40px;" class="rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                         <div class="collapse navbar-collapse" id="navbarToggle" align="right">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
