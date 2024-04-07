@@ -43,7 +43,7 @@ To get a basic layout on how the website should look, I used Balsamiq Wireframes
 #### Colors
 The website is using a single custom color (#527d54) to distinguish the navigation bar from the body. This color matches both the dark and light bootstrap themes.
 ## Optimization
-To ensure a fast and responsive user experience, a method for handling user-uploaded images was implemented to automatically resize (800×800px for card images, 300×300 for profile pictures) and convert to the .webp format. 
+To ensure a fast and responsive user experience, a method for handling user-uploaded images was implemented to automatically resize (800×800px for card images, 300×300 for profile pictures) and convert them to the .webp format. 
 By doing this, a significant step to reduce storage space and to improve load times are taken.
 ## Testing
 ### Validator Testing
@@ -102,7 +102,7 @@ All python files was tested with the same result.
 ### Automatic Testing
 Automatic testing is done by using Django's built-in test module.
 [coverage.py](https://coverage.readthedocs.io/en/latest/) was used to get a grasp on the width of the tests.
-There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder.
+There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder. Since the project uses Cloudinary as its image host, I was unable to predict the full URL of the uploaded images for the quiz. This test was moved to manual testing.
 | Name | Stmts | Miss| Cover | Missing |
 | ---- | ----- | --- | ----- | ------- |
 | cards/__init__.py | 0 | 0 | 100% |
