@@ -6,7 +6,7 @@
 ### Main Page
 If a non-authenticated user visits the site, they are greeting by a text that explains what the site does and encourages them to sign up.
 ### Subjects
-![Subjects Page](readme-images/scrot-subjects)
+![Subjects Page](readme-images/scrot-subjects.webp)
 Once the user is authenticated, their created subjects are listed here.
 ### Decks
 ![Decks Page](readme-images/scrot-decks.webp)
