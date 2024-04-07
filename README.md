@@ -1,7 +1,40 @@
 # FlashCards
 ![Screenshot](readme-images/scrot_full.webp)\
 [FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is a tool designed to help students focus on learning. It uses the simple yet effective method of flashcards to help students memorize and understand various subjects. Create your own flashcards, manage them in decks, and review them at your own pace.
-
+# Contents
+- [**FlashCards**](#FlashCards)
+- [Features](#features)
+  - [Main Page](#main-page)
+  - [Subjects](#subjects)
+  - [Decks](#subjects)
+  - [Cards](#cards)
+  - [Quiz](#quiz)
+    - [Touch Controls](#touch-controls)
+  - [Navigation Bar](#navigation-bar)
+    - [Color Themes](#color-themes)
+    - [Profile](#profile)
+- [Future Features](#future-features)
+- [Development](#development)
+	- [Agile Development](#agile-development)
+	- [Database ERD](#database-erd)
+	- [Look and Feel](#look-and-feel)
+	  - [Colors](#colors)
+    - [Optimization](#optimization)
+- [Testing](#testing)
+	- [Validator Testing](#validator-testing)
+    - [Automatic Testing](#automatic-testing)
+	- [Manual Testing](#manual-testing)
+	- [Browser Testing](#browser-testing)
+	- [Device Testing](#device-testing)
+- [Bugs](#bugs)
+	- [Known Bugs](#known-bugs)
+- [Technologies Used](#technologies-used)
+- [Deployment](#deployment)
+    - [To deploy the project](#heroku)
+    - [To fork the repository on GitHub](#forking-the-github-repository)
+    - [To create a local clone of this project](#making-a-local-clone)
+- [Credits](#credits)
+- [Acknowledgements](#acknowledgements)
 ## Features
 ### Main Page
 Visitors who are not logged in are greeted with an introductory text that outlines the site's purpose and encourages registration.
