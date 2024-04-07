@@ -3,17 +3,33 @@
 [FlashCards](https://ci-flashcards-0d9425f9c570.herokuapp.com) is a tool designed to help students focus on learning. It uses the simple yet effective method of flashcards to help students memorize and understand various subjects. Create your own flashcards, manage them in decks, and review them at your own pace.
 
 ## Features
-### Navigation Bar
-#### Color Themes
-#### Profile
 ### Main Page
+If a non-authenticated user visits the site, they are greeting by a text that explains what the site does and encourages them to sign up.
 ### Subjects
+![Subjects Page](readme-images/scrot-subjects)
+Once the user is authenticated, their created subjects are listed here.
 ### Decks
+![Decks Page](readme-images/scrot-decks.webp)
+Lists the decks belonging to the selected subject.
 ### Cards
+![Cards Page](readme-images/scrot-cards.webp)
+Here, the user has the option either start the quiz or manage the cards inside the selected deck.
 ### Quiz
+![Quiz](readme-images/scrot-quiz.webp)
+The quiz shows a random card from the deck, only the question is shown. Clicking the card flips the card, revealing the answer.
+The navigation arrows on the side are used to navigate between cards.
 #### Touch Controls
+On smaller screens, the navigation between cards are done with touch controls, the user can swipe left or right to change cards.
+### Navigation Bar
+Besides the logo the navigation bar has two options, if the user is not logged in, it shows the “Login” button, clicking it redirects the user to the login page. If the user is authenticated the navigation shows the user's profile picture, clicking the picture expands the navigation bar and gives the user the options to either edit their profile or logout.
+#### Color Themes
+![Light moode](readme-images/scrot-light.webp)
+The navigation bar also features a theme selector, this changes the color theme of the site to either light or dark mode.
+#### Profile
+![Profile Page](readme-images/scrot-profile.webp)
+The profile page is where the user can edit their details and/or change their profile picture.
 ## Future Features
-- Allow users to share and collaborate in subjects.
+- Allow users to share and collaborate.
 - Implement the use of [Leitner system](https://en.wikipedia.org/wiki/Leitner_system) in the quiz.
 ## Development
 ### Agile Development
@@ -86,7 +102,7 @@ All python files was tested with the same result.
 ### Automatic Testing
 Automatic testing is done by using Django's built-in test module.
 [coverage.py](https://coverage.readthedocs.io/en/latest/) was used to get a grasp on the width of the tests.
-There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder. The 
+There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder.
 | Name | Stmts | Miss| Cover | Missing |
 | ---- | ----- | --- | ----- | ------- |
 | cards/__init__.py | 0 | 0 | 100% |
