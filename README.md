@@ -4,13 +4,13 @@
 
 ## Features
 ### Main Page
-If a non-authenticated user visits the site, they are greeting by a text that explains what the site does and encourages them to sign up.
+Visitors who are not logged in are greeted with an introductory text that outlines the site's purpose and encourages registration.
 ### Subjects
 ![Subjects Page](readme-images/scrot-subjects.webp)
-Once the user is authenticated, their created subjects are listed here.
+For authenticated users, the homepage transforms to display a list of their created subjects, providing a structured overview of their learning content. Each subject has links to edit or delete the entry.
 ### Decks
 ![Decks Page](readme-images/scrot-decks.webp)
-Lists the decks belonging to the selected subject.
+Within each subject, decks are organized to contain flashcards. This structure supports efficient management and access to learning material.
 ### Cards
 ![Cards Page](readme-images/scrot-cards.webp)
 Here, the user has the option either start the quiz or manage the cards inside the selected deck.
@@ -19,9 +19,9 @@ Here, the user has the option either start the quiz or manage the cards inside t
 The quiz shows a random card from the deck, only the question is shown. Clicking the card flips the card, revealing the answer.
 The navigation arrows on the side are used to navigate between cards.
 #### Touch Controls
-On smaller screens, the navigation between cards are done with touch controls, the user can swipe left or right to change cards.
+For mobile users, the navigation between cards are done with touch controls, the user can swipe left or right to change cards.
 ### Navigation Bar
-Besides the logo the navigation bar has two options, if the user is not logged in, it shows the “Login” button, clicking it redirects the user to the login page. If the user is authenticated the navigation shows the user's profile picture, clicking the picture expands the navigation bar and gives the user the options to either edit their profile or logout.
+The navigation bar adapts based on user authentication status, offering a "Login" button for guests, and displaying the authenticated user's profile picture which, when clicked, reveals options for profile management and logging out.
 #### Color Themes
 ![Light moode](readme-images/scrot-light.webp)
 The navigation bar also features a theme selector, this changes the color theme of the site to either light or dark mode.
@@ -159,11 +159,11 @@ Fixed bugs are listed in my [GitHub Project](https://github.com/users/dvudd/proj
 ### Known Bugs
 No known bugs remaining.
 ## Technologies Used
-- IDE: Gitpod
-- Repository: GitHub
-- Deployment: Heroku
-- Database hosting: ElephantSQL
-- Image hosting: Cloudinary
+- IDE: [Gitpod](https://www.gitpod.io)
+- Repository: [GitHub](https://www.github.com)
+- Deployment: [Heroku](https://www.heroku.com)
+- Database hosting: [ElephantSQL](https://www.elephantsql.com)
+- Image hosting: [Cloudinary](https://cloudinary.com)
 - Favicon generator: [favicon.io](https://favicon.io/favicon-converter/)
 ### Languages
 - HTML5
