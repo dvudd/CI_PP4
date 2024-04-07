@@ -232,7 +232,12 @@ def manage_card(request, deck_id, card_id=None):
     else:
         form = CardForm(instance=card)
     cards = Card.objects.filter(deck=deck).order_by('-created_at')
-    return render(request, 'cards/card_form.html', {'form': form, 'deck': deck, 'cards': cards, 'action': action})
+    return render(request, 'cards/card_form.html', {
+        'form': form,
+        'deck': deck,
+        'cards': cards,
+        'action': action
+    })
 
 
 # Delete Card
@@ -242,7 +247,7 @@ def delete_card(request, card_id):
     Delete an existing card.
 
     Allows the creator of the subject to delete the card.
-    After a successful deletion, the user is redirected back to the 
+    After a successful deletion, the user is redirected back to the
     create card page to continue managing other cards within the deck.
     """
     card = get_object_or_404(
@@ -254,7 +259,6 @@ def delete_card(request, card_id):
     card.delete()
     messages.success(request, "Card deleted successfully")
     return redirect('create_card', deck_id=deck_id)
-
 
 
 # Quiz view

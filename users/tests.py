@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 from PIL import Image
 from .models import Profile
-from .forms import( 
+from .forms import (
     UserRegisterForm,
     UserUpdateForm,
     ProfileUpdateForm,
@@ -223,7 +223,7 @@ class UserViewTests(TestCase):
         self.assertTemplateUsed(response, 'register.html')
         self.assertIsInstance(response.context['form'], UserRegisterForm)
         self.assertFalse(response.context['form'].is_bound)
-    
+
     def test_login_view(self):
         """
         Test the login view.

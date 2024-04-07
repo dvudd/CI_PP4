@@ -439,11 +439,18 @@ class DeckViewTests(TestCase):
             'name': 'New Deck',
             'description': 'A new test deck',
         }
-        response = self.client.post(reverse('create_deck', args=[self.subject.id]), post_data)
+        response = self.client.post(reverse(
+            'create_deck',
+            args=[self.subject.id]),
+            post_data
+        )
         self.assertEqual(Deck.objects.count(), decks_before + 1)
         new_deck = Deck.objects.latest('id')
         self.assertEqual(new_deck.subject, self.subject)
-        self.assertRedirects(response, reverse('deck_detail', args=[new_deck.id]))
+        self.assertRedirects(response, reverse(
+            'deck_detail',
+            args=[new_deck.id]
+        ))
 
     def test_deck_detail(self):
         """
@@ -564,8 +571,9 @@ class CardViewTests(TestCase):
 
         response = self.client.post(reverse(
             'edit_card',
-            args=[self.deck.id,
-            self.card.id]),
+            args=[
+                self.deck.id,
+                self.card.id]),
             {
                 'question': updated_question,
                 'answer': updated_answer
@@ -583,8 +591,8 @@ class CardViewTests(TestCase):
         """
         Test the deletion of a card.
         """
-        response = self.client.post(
-            reverse('delete_card',
+        response = self.client.post(reverse(
+            'delete_card',
             args=[self.card.id])
         )
         self.assertRedirects(response, reverse(
