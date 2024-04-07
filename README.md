@@ -30,7 +30,7 @@ The navigation bar also features a theme selector, this changes the color theme 
 The profile page is where the user can edit their details and/or change their profile picture.
 ## Future Features
 - Allow users to share and collaborate.
-- Implement the use of [Leitner system](https://en.wikipedia.org/wiki/Leitner_system) in the quiz.
+- Implement the use of the [Leitner system](https://en.wikipedia.org/wiki/Leitner_system) in the quiz.
 ## Development
 ### Agile Development
 During the development process, I tried to follow an agile development process, in my [GitHub Project](https://github.com/users/dvudd/projects/3) all user stories and bugs are listed.
