@@ -187,6 +187,20 @@ In addition to the automatic tests, manual testing was conducted to ensure the u
 | UX | The correct card images is presented | PASS |
 | UX | The animation of swipes are presented as expected during the quiz | PASS |
 | UX | Touch controls during the quiz works as expected | PASS |
+### Browser Testing
+The site was tested on these browsers:
+| Browser | Version | Outcome |
+| --------- | ----------- | ------ |
+| Safari MacOS | 17.4 | PASS |
+| Safari IOS | 17.3.1 | PASS |
+| Mozilla Firefox | 124.0.2 | PASS |
+| Google Chrome | 123.0.6312.107 | PASS |
+### Device Testing
+The site was tested on these devices:
+- Macbook Air
+- iPhone 11
+- Ipad Air
+- Windows PC
 ## Bugs
 Fixed bugs are listed in my [GitHub Project](https://github.com/users/dvudd/projects/3)
 ### Known Bugs
