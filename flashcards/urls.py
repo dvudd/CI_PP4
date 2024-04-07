@@ -19,6 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.conf import settings
 from users import views as user_views
+from cards import views as cards_views
 
 urlpatterns = [
     path('', include('cards.urls')),
@@ -31,6 +32,9 @@ urlpatterns = [
     ),
     path('profile/', user_views.profile, name='profile'),
 ]
+
+# Custom error handlers
+handler404 = 'cards.views.handler404'
 
 # Enable admin page when DEBUG is set to True
 if settings.DEBUG == 'True':

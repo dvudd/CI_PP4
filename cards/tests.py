@@ -307,6 +307,14 @@ class HomeViewTests(TestCase):
         self.assertTemplateUsed(response, 'cards/index.html')
         self.assertNotIn('user_subjects', response.context)
 
+    def test_404_view(self):
+        """
+        Tests the 404 page.
+        """
+        response = self.client.get('/non-existent-page/')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, 'cards/404.html')
+
 
 class SubjectViewTests(TestCase):
     """

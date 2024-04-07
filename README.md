@@ -102,7 +102,7 @@ All python files was tested with the same result.
 ### Automatic Testing
 Automatic testing is done by using Django's built-in test module.
 [coverage.py](https://coverage.readthedocs.io/en/latest/) was used to get a grasp on the width of the tests.
-There are 45 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder. Since the project uses Cloudinary as its image host, I was unable to predict the full URL of the uploaded images for the quiz. This test was moved to manual testing.
+There are 46 tests made, and they cover 98% of the project's code. I prioritized testing the custom models, views and forms rather than the boilerplate django settings and configuration located in the `flashcards` project folder. Since the project uses Cloudinary as its image host, I was unable to predict the full URL of the uploaded images for the quiz. This test was moved to manual testing.
 | Name | Stmts | Miss| Cover | Missing |
 | ---- | ----- | --- | ----- | ------- |
 | cards/__init__.py | 0 | 0 | 100% |
@@ -117,9 +117,9 @@ There are 45 tests made, and they cover 98% of the project's code. I prioritized
 | cards/migrations/0006_deck_description_alter_card_answer_and_more.py | 4 | 0 | 100% |
 | cards/migrations/__init__.py | 0 | 0 | 100% |
 | cards/models.py | 51 | 0 | 100% |
-| cards/tests.py | 219 | 0 | 100% |
+| cards/tests.py | 223 | 0 | 100% |
 | cards/urls.py | 3 | 0 | 100% |
-| cards/views.py | 118 | 2 | 98% | 272, 276 |
+| cards/views.py | 120 | 2 | 98% | 272, 276 |
 | env.py | 5 | 0 | 100% |
 | flashcards/__init__.py | 0 | 0 | 100% |
 | flashcards/asgi.py | 4 | 4 | 0% | 10-16 |
@@ -137,7 +137,7 @@ There are 45 tests made, and they cover 98% of the project's code. I prioritized
 | users/signals.py | 11 | 0 | 100% |
 | users/tests.py | 100 | 0 | 100% |
 | users/views.py | 42 | 0 | 100% |
-| TOTAL | 786 | 14 | 98%  |
+| TOTAL | 794 | 14 | 98%  |
 To run the tests, run the following command:
 ```sh
 

@@ -288,3 +288,11 @@ def quiz_view(request, deck_id):
         }
         data.append(card_data)
     return render(request, 'cards/quiz.html', {'deck': deck, 'cards': data})
+
+
+# 404 handler
+def handler404(request, exception):
+    """
+    Renders the 404 page.
+    """
+    return render(request, 'cards/404.html', status=404)
